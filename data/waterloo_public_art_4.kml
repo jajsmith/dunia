@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Folder><name>OGRGeoJSON</name>
+<Style id="waterloo_art_style">
+  <!--<IconStyle>
+    <Icon>
+      <href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png
+      </href>
+    </Icon>
+  </IconStyle>-->
+  <BalloonStyle>
+    <text>$[TITLE]</text>
+    <text>$[URL]</text>
+    <text>$[LOCATION]</text>
+  </BalloonStyle>
+</Style>
+  <Placemark>
+  <name>hello1</name>		
+  <styleUrl>#waterloo_art_style</styleUrl>
+	<ExtendedData><!--<SchemaData schemaUrl="#OGRGeoJSON">-->
+		<Data name="OBJECTID">1</Data>
+		<Data name="TITLE"><value><![CDATA[John Labatt Barley field]]></value></Data>
+		<Data name="ARTIST">Jane Buyers</Data>
+		<Data name="INSTALLED">2001</Data>
+		<Data name="MATERIAL">Steel and copper</Data>
+		<Data name="LOCATION">Labatt Parkette - Park Street at Norman - small parkette near Catalina Homes</Data>
+		<Data name="TOUR_AREA">Other</Data>
+		<Data name="OWNER">COW</Data>
+		<Data name="STATUS">installed</Data>
+		<Data name="URL"><value><![CDATA[<img src="http://www.waterloo.ca/uploads/634870636631205963_Final.jpg">]]></value></Data>
+		<Data name="LONGITUDE">-80.5214893083141</Data>
+		<Data name="LATITUDE">43.4596027104015</Data>
+		<Data name="CreationDate">2015-09-23T13:50:37.762Z</Data>
+		<Data name="Creator">OpenData_Waterloo</Data>
+		<Data name="EditDate">2015-09-23T13:50:37.762Z</Data>
+		<Data name="Editor">OpenData_Waterloo</Data>
+	<!--</SchemaData>--></ExtendedData>
+    <Point><coordinates>-80.521489307999957,43.459602710000013</coordinates></Point>
+  </Placemark>
+  <Placemark>
+  <name>hello2</name>
+  <styleUrl>#waterloo_art_style</styleUrl>
+	<ExtendedData><!--<!--<SchemaData schemaUrl="#OGRGeoJSON">-->
+		<Data name="OBJECTID">2</Data>
+		<Data name="TITLE"><value><![CDATA[Looking Outward And Inward]]></value></Data>
+		<Data name="ARTIST">Susan Low-Beer</Data>
+		<Data name="INSTALLED">1995 est</Data>
+		<Data name="MATERIAL">Steel and ceramic clay</Data>
+		<Data name="LOCATION">Waterloo Public Library – (Dupont St side) Dupont &amp; Albert</Data>
+		<Data name="TOUR_AREA">Uptown</Data>
+		<Data name="OWNER">COW</Data>
+		<Data name="STATUS">installed</Data>
+		<Data name="URL"><value><![CDATA[<img src="http://www.waterloo.ca/uploads/634870640407348596_Final.jpg">]]></Data>
+		<Data name="LONGITUDE">-80.5244678309922</Data>
+		<Data name="LATITUDE">43.4657396687924</Data>
+		<Data name="CreationDate">2015-09-23T13:50:37.762Z</Data>
+		<Data name="Creator">OpenData_Waterloo</Data>
+		<Data name="EditDate">2015-09-23T13:50:37.762Z</Data>
+		<Data name="Editor">OpenData_Waterloo</Data>
+	<!--</SchemaData>--></ExtendedData>
+      <Point><coordinates>-80.524467830999981,43.465739669</coordinates></Point>
+  </Placemark>
+</Folder>
+</Document></kml>

@@ -80,7 +80,8 @@
   </head>
   <body>
     <div id="header">
-      <h1 >Where Should We Go?</h1>
+      <h1 >Want to Explore Waterloo?</h1>
+      <h2>Check out these cool places</h2>
     </div>
     <div id="map"></div>
     <div id="content-window">
@@ -114,9 +115,27 @@
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 43.47, lng: -80.5},
-          zoom: 12
+          zoom: 12,
+          styles: [{
+            featureType: 'poi',
+            stylers: [{ visibility: 'off' }]  // Turn off points of interest.
+          }, {
+            featureType: 'transit.station',
+            stylers: [{ visibility: 'off' }]  // Turn off bus stations, train stations, etc.
+          }],
+          disableDoubleClickZoom: true
+        });
+
+        // Add custom markers?
+        map.addListener('click', function(e) {
+          var marker = new google.maps.Marker({
+            position: {lat: e.latLng.lat(), lng: e.latLng.lng()},
+            map: map
+          });
         });
       }
+
+
 
       //var storage = firebase.storage();
       var storage = firebase.storage();
