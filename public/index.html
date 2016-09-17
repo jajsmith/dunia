@@ -30,8 +30,8 @@
         margin: 0 0 16px;
       }
 
-      #message {
-        max-width: 400px;
+      #content-window {
+        max-width: 500px;
         margin: 40px auto;
         box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2),0 1px 1px 0 rgba(0,0,0,0.14),0 2px 1px -1px rgba(0,0,0,0.12);
         border-radius: 2px;
@@ -39,26 +39,26 @@
         padding: 16px 24px;
       }
 
-      #message h1 {
+      #content-window h1 {
         font-size: 22px;
         font-weight: 500;
         text-align: center;
         margin: 0 0 16px;
       }
 
-      #message p {
+      #content-window p {
         font-weight: 300;
         line-height: 150%;
       }
 
-      #message ul {
+      #content-window ul {
         list-style: none;
         margin: 16px 0 0;
         padding: 0;
         text-align: center;
       }
 
-      #message li a {
+      #content-window li a {
         display: inline-block;
         padding: 8px;
         text-transform: uppercase;
@@ -73,6 +73,7 @@
       }
 
       #map {
+        width: 100%;
         height: 400px;
       }
     </style>
@@ -82,15 +83,11 @@
       <h1 >Where Should We Go?</h1>
     </div>
     <div id="map"></div>
-    <div id="message">
-      <h1>Welcome to Firebase Hosting</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <ul>
-        <li><a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a></li>
-      </ul>
+    <div id="content-window">
+      <h1>Click on Interest Points for Info</h1>
+      <div id="map-content"></div>
     </div>
     
-    <!-- Firebase authorization ??? -->
     <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
     <script>
       /* *************************************
@@ -123,20 +120,18 @@
 
       //var storage = firebase.storage();
       var storage = firebase.storage();
-      var publicArtRef = storage.ref("opendata/waterloo_public_art.kml");
+      var publicArtRef = storage.ref("opendata/waterloo_public_art_2.kml");
       var publicArtSrc = publicArtRef.getDownloadURL().then(function(url) {
         loadKmlLayer(url, map);
       }).catch(function(error) {
         // TODO
       });
 
-      
-
-       /**
-        * Adds a KMLLayer based on the URL passed. Clicking on a marker
-        * results in the balloon content being loaded into the right-hand div.
-        * @param {string} src A URL for a KML file.
-        */
+      /**
+       * Adds a KMLLayer based on the URL passed. Clicking on a marker
+       * results in the balloon content being loaded into the right-hand div.
+       * @param {string} src A URL for a KML file.
+       */
       function loadKmlLayer(src, map) {
         console.log("Loading KML Layer: " + src);
         var kmlLayer = new google.maps.KmlLayer(src, {
@@ -146,7 +141,7 @@
         });
         google.maps.event.addListener(kmlLayer, 'click', function(event) {
           var content = event.featureData.infoWindowHtml;
-          var testimonial = document.getElementById('capture');
+          var testimonial = document.getElementById('map-content');
           testimonial.innerHTML = content;
         });
        }

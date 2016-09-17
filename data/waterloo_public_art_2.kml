@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="OGRGeoJSON" id="OGRGeoJSON">
+	<SimpleField name="OBJECTID" type="int"></SimpleField>
+	<SimpleField name="TITLE" type="string"></SimpleField>
+	<SimpleField name="ARTIST" type="string"></SimpleField>
+	<SimpleField name="INSTALLED" type="string"></SimpleField>
+	<SimpleField name="MATERIAL" type="string"></SimpleField>
+	<SimpleField name="LOCATION" type="string"></SimpleField>
+	<SimpleField name="TOUR_AREA" type="string"></SimpleField>
+	<SimpleField name="OWNER" type="string"></SimpleField>
+	<SimpleField name="STATUS" type="string"></SimpleField>
+	<SimpleField name="URL" type="string"></SimpleField>
+	<SimpleField name="LONGITUDE" type="string"></SimpleField>
+	<SimpleField name="LATITUDE" type="string"></SimpleField>
+	<SimpleField name="CreationDate" type="string"></SimpleField>
+	<SimpleField name="Creator" type="string"></SimpleField>
+	<SimpleField name="EditDate" type="string"></SimpleField>
+	<SimpleField name="Editor" type="string"></SimpleField>
+</Schema>
+<Folder><name>OGRGeoJSON</name>
+  
+	<Style id="waterloo_style">
+      <IconStyle>
+        <Icon>
+          <href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png
+          </href>
+        </Icon>
+      </IconStyle>
+      <BalloonStyle>
+        <text>$[string]</text>
+      </BalloonStyle>
+    </Style>
+  <Placemark>
+  	<styleUrl>#waterloo_style</styleUrl>
+		<ExtendedData>
+		<Data name="string">
+			<value><![CDATA[<br><br><img
+            src="http://www.waterloo.ca/uploads/634870640407348596_Final.jpg" />]]></value>
+			<!--<OBJECTID>2</OBJECTID>
+			<TITLE>Looking Outward And Inward</TITLE>
+			<ARTIST>Susan Low-Beer</ARTIST>
+			<INSTALLED>1995 est</INSTALLED>
+			<MATERIAL>Steel and ceramic clay</MATERIAL>
+			<LOCATION>Waterloo Public Library – (Dupont St side) Dupont &amp; Albert</LOCATION>
+			<TOUR_AREA>Uptown</TOUR_AREA>
+			<OWNER>COW</OWNER>
+			<STATUS>installed</STATUS>
+			<URL>http://www.waterloo.ca/uploads/634870640407348596_Final.jpg</URL>
+			<LONGITUDE>-80.5244678309922</LONGITUDE>
+			<LATITUDE>43.4657396687924</LATITUDE>
+			<CreationDate>2015-09-23T13:50:37.762Z</CreationDate>
+			<Creator>OpenData_Waterloo</Creator>
+			<EditDate>2015-09-23T13:50:37.762Z</EditDate>
+			<Editor>OpenData_Waterloo</Editor>-->
+		</Data>
+		</ExtendedData>
+	  <Point>
+	  	<coordinates>-80.524467830999981,43.465739669</coordinates>
+	  </Point>
+  </Placemark>
+
+  <Placemark>
+		<ExtendedData>
+		<Data name="string">
+			<OBJECTID>3</OBJECTID>
+			<TITLE>Vessel</TITLE>
+			<ARTIST>Stephen Cruise</ARTIST>
+			<INSTALLED>2003</INSTALLED>
+			<MATERIAL>Granite</MATERIAL>
+			<LOCATION>RIM Park - Sportsplex Entrance</LOCATION>
+			<TOUR_AREA>RIM Park</TOUR_AREA>
+			<OWNER>COW</OWNER>
+			<STATUS>installed</STATUS>
+			<URL>http://www.waterloo.ca/uploads/634870649791857079_Final.jpg</URL>
+			<LONGITUDE>-80.5018510111207</LONGITUDE>
+			<LATITUDE>43.5188954470683</LATITUDE>
+			<CreationDate>2015-09-23T13:50:37.762Z</CreationDate>
+			<Creator>OpenData_Waterloo</Creator>
+			<EditDate>2015-09-23T13:50:37.762Z</EditDate>
+			<Editor>OpenData_Waterloo</Editor>
+		</Data>
+		</ExtendedData>
+	  <Point>
+	  	<coordinates>-80.501851010999985,43.518895447</coordinates>
+	  </Point>
+  </Placemark>
+
+</Folder>
+</Document></kml>
