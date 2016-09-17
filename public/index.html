@@ -43,7 +43,8 @@
       <h1>Click on Interest Points for Info</h1>
       <div id="map-content"></div>
     </div>
-    
+
+    <!-- Firebase -->    
     <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
     <script>
       /* *************************************
@@ -78,7 +79,8 @@
             featureType: 'transit.station',
             stylers: [{ visibility: 'off' }]  // Turn off bus stations, train stations, etc.
           }],
-          disableDoubleClickZoom: true
+          disableDoubleClickZoom: true,
+          scrollwheel: false
         });
 
         // Add custom markers?
@@ -89,9 +91,6 @@
           });
         });
       }
-
-
-
       //var storage = firebase.storage();
       var storage = firebase.storage();
       var publicArtRef = storage.ref("opendata/waterloo_public_art_2.kml");
@@ -122,5 +121,6 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHafQFb_sniyg-XC5B_C1oW23sjV1ubIA&callback=initMap"
     async defer></script>
+    <script src="scripts/main.js"></script>
   </body>
 </html>
