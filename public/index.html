@@ -73,7 +73,7 @@
       }
 
       #map {
-        height: 200px;
+        height: 400px;
       }
     </style>
   </head>
@@ -90,14 +90,66 @@
       </ul>
     </div>
     
+    <!-- Firebase authorization ??? -->
+    <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
     <script>
+      /* *************************************
+       * This connects us to FIREBASE
+       * *************************************
+       */
+      var config = {
+        apiKey: "AIzaSyCLG6CjQSZcw8KI8QgBBOzRwMfJtkIwkj0",
+        authDomain: "hackthenorth-b683f.firebaseapp.com",
+        databaseURL: "https://hackthenorth-b683f.firebaseio.com",
+        storageBucket: "hackthenorth-b683f.appspot.com",
+        messagingSenderId: "453572199626"
+      };
+      firebase.initializeApp(config);
+
+      /**
+       * *************************************
+       * This runs GOOGLE MAPS API connections
+       * *************************************
+       */
       var map;
+      
+      /*var publicArtSrc = '../data/waterloo_public_art.kml'*/
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 43.47, lng: -80.5},
           zoom: 12
         });
       }
+
+      //var storage = firebase.storage();
+      var storage = firebase.storage();
+      var publicArtRef = storage.ref("opendata/waterloo_public_art.kml");
+      var publicArtSrc = publicArtRef.getDownloadURL().then(function(url) {
+        loadKmlLayer(url, map);
+      }).catch(function(error) {
+        // TODO
+      });
+
+      
+
+       /**
+        * Adds a KMLLayer based on the URL passed. Clicking on a marker
+        * results in the balloon content being loaded into the right-hand div.
+        * @param {string} src A URL for a KML file.
+        */
+      function loadKmlLayer(src, map) {
+        console.log("Loading KML Layer: " + src);
+        var kmlLayer = new google.maps.KmlLayer(src, {
+          suppressInfoWindows: true,
+          preserveViewport: false,
+          map: map
+        });
+        google.maps.event.addListener(kmlLayer, 'click', function(event) {
+          var content = event.featureData.infoWindowHtml;
+          var testimonial = document.getElementById('capture');
+          testimonial.innerHTML = content;
+        });
+       }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHafQFb_sniyg-XC5B_C1oW23sjV1ubIA&callback=initMap"
     async defer></script>

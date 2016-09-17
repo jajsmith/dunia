@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="OGRGeoJSON" id="OGRGeoJSON">
+	<SimpleField name="OBJECTID" type="int"></SimpleField>
+	<SimpleField name="TITLE" type="string"></SimpleField>
+	<SimpleField name="ARTIST" type="string"></SimpleField>
+	<SimpleField name="INSTALLED" type="string"></SimpleField>
+	<SimpleField name="MATERIAL" type="string"></SimpleField>
+	<SimpleField name="LOCATION" type="string"></SimpleField>
+	<SimpleField name="TOUR_AREA" type="string"></SimpleField>
+	<SimpleField name="OWNER" type="string"></SimpleField>
+	<SimpleField name="STATUS" type="string"></SimpleField>
+	<SimpleField name="URL" type="string"></SimpleField>
+	<SimpleField name="LONGITUDE" type="string"></SimpleField>
+	<SimpleField name="LATITUDE" type="string"></SimpleField>
+	<SimpleField name="CreationDate" type="string"></SimpleField>
+	<SimpleField name="Creator" type="string"></SimpleField>
+	<SimpleField name="EditDate" type="string"></SimpleField>
+	<SimpleField name="Editor" type="string"></SimpleField>
+</Schema>
+<Folder><name>OGRGeoJSON</name>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">1</SimpleData>
+		<SimpleData name="TITLE">John Labatt Barley field</SimpleData>
+		<SimpleData name="ARTIST">Jane Buyers</SimpleData>
+		<SimpleData name="INSTALLED">2001</SimpleData>
+		<SimpleData name="MATERIAL">Steel and copper</SimpleData>
+		<SimpleData name="LOCATION">Labatt Parkette - Park Street at Norman - small parkette near Catalina Homes</SimpleData>
+		<SimpleData name="TOUR_AREA">Other</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870636631205963_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.5214893083141</SimpleData>
+		<SimpleData name="LATITUDE">43.4596027104015</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.521489307999957,43.459602710000013</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">2</SimpleData>
+		<SimpleData name="TITLE">Looking Outward And Inward</SimpleData>
+		<SimpleData name="ARTIST">Susan Low-Beer</SimpleData>
+		<SimpleData name="INSTALLED">1995 est</SimpleData>
+		<SimpleData name="MATERIAL">Steel and ceramic clay</SimpleData>
+		<SimpleData name="LOCATION">Waterloo Public Library – (Dupont St side) Dupont &amp; Albert</SimpleData>
+		<SimpleData name="TOUR_AREA">Uptown</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870640407348596_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.5244678309922</SimpleData>
+		<SimpleData name="LATITUDE">43.4657396687924</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.524467830999981,43.465739669</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">3</SimpleData>
+		<SimpleData name="TITLE">Vessel</SimpleData>
+		<SimpleData name="ARTIST">Stephen Cruise</SimpleData>
+		<SimpleData name="INSTALLED">2003</SimpleData>
+		<SimpleData name="MATERIAL">Granite</SimpleData>
+		<SimpleData name="LOCATION">RIM Park - Sportsplex Entrance</SimpleData>
+		<SimpleData name="TOUR_AREA">RIM Park</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870649791857079_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.5018510111207</SimpleData>
+		<SimpleData name="LATITUDE">43.5188954470683</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.501851010999985,43.518895447</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">4</SimpleData>
+		<SimpleData name="TITLE">Triad: Dual, Interface And Reunited</SimpleData>
+		<SimpleData name="ARTIST">Ann Roberts</SimpleData>
+		<SimpleData name="INSTALLED">1981</SimpleData>
+		<SimpleData name="MATERIAL">Bronze</SimpleData>
+		<SimpleData name="LOCATION">Uptown Parkade - Entrance on King St (3 objects) near Willis Way</SimpleData>
+		<SimpleData name="TOUR_AREA">Uptown</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870649268164159_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.5218466128449</SimpleData>
+		<SimpleData name="LATITUDE">43.4639533948397</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.52184661299998,43.463953395</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">5</SimpleData>
+		<SimpleData name="TITLE">Etched Into Memory</SimpleData>
+		<SimpleData name="ARTIST">Evan Penney &amp;amp; Stephen Andrews</SimpleData>
+		<SimpleData name="INSTALLED">1992</SimpleData>
+		<SimpleData name="MATERIAL">Fibreglass with a stone finish and brass plates</SimpleData>
+		<SimpleData name="LOCATION">Waterloo Memorial Recreation Complex - indoors, near the arena steps
+101 Father David Bauer Drive
+</SimpleData>
+		<SimpleData name="TOUR_AREA">Uptown</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870634517090250_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.5326241478785</SimpleData>
+		<SimpleData name="LATITUDE">43.4643949922217</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.532624147999968,43.464394992000017</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">6</SimpleData>
+		<SimpleData name="TITLE">Our House</SimpleData>
+		<SimpleData name="ARTIST">Tony Urquhart</SimpleData>
+		<SimpleData name="INSTALLED">2003</SimpleData>
+		<SimpleData name="MATERIAL">Painted Steel</SimpleData>
+		<SimpleData name="LOCATION">Grey Silo Park House -  - adjacent to golf club house</SimpleData>
+		<SimpleData name="TOUR_AREA">RIM Park</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870642288555900_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.4929126004458</SimpleData>
+		<SimpleData name="LATITUDE">43.5168491395063</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.492912599999954,43.51684914</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">7</SimpleData>
+		<SimpleData name="TITLE">Aspiring Orchard</SimpleData>
+		<SimpleData name="ARTIST">Catherine Paleczny</SimpleData>
+		<SimpleData name="INSTALLED">2010</SimpleData>
+		<SimpleData name="MATERIAL">Stainless Steel</SimpleData>
+		<SimpleData name="LOCATION">36 Regina Street N at Bridgeport Rd</SimpleData>
+		<SimpleData name="TOUR_AREA">Uptown</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870630763723658_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.521595389052</SimpleData>
+		<SimpleData name="LATITUDE">43.4673580906382</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.52159538899997,43.467358091000023</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">8</SimpleData>
+		<SimpleData name="TITLE">Veterans Memorial</SimpleData>
+		<SimpleData name="ARTIST">Timothy Schmalz</SimpleData>
+		<SimpleData name="INSTALLED">2006</SimpleData>
+		<SimpleData name="MATERIAL">Bronze</SimpleData>
+		<SimpleData name="LOCATION">Scholars Green – University Ave &amp; Hazel St</SimpleData>
+		<SimpleData name="TOUR_AREA">Other</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870650907103038_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.5277307864402</SimpleData>
+		<SimpleData name="LATITUDE">43.4754217146466</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.52773078599995,43.475421715</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">9</SimpleData>
+		<SimpleData name="TITLE">Origami Goose</SimpleData>
+		<SimpleData name="ARTIST">Jyhling Lee</SimpleData>
+		<SimpleData name="INSTALLED">2011-12</SimpleData>
+		<SimpleData name="MATERIAL">Powder coated aluminum</SimpleData>
+		<SimpleData name="LOCATION">Westside Library &amp; YMCA - Fischer-Hallman &amp; Laurelwood</SimpleData>
+		<SimpleData name="TOUR_AREA">Westside</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870640976125595_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.5710784342268</SimpleData>
+		<SimpleData name="LATITUDE">43.4740595193248</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.571078433999958,43.474059519</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">10</SimpleData>
+		<SimpleData name="TITLE">Laurel Creek</SimpleData>
+		<SimpleData name="ARTIST">Natalie McHaffie</SimpleData>
+		<SimpleData name="INSTALLED">1988</SimpleData>
+		<SimpleData name="MATERIAL">Cypress wood and stainless steel</SimpleData>
+		<SimpleData name="LOCATION">Waterloo City Centre – North side, adjacent to the creek itself</SimpleData>
+		<SimpleData name="TOUR_AREA">Uptown</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870637818056048_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.5202774927101</SimpleData>
+		<SimpleData name="LATITUDE">43.4639808320805</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.52027749299998,43.463980832</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">11</SimpleData>
+		<SimpleData name="TITLE">Golden Queen Hybrid</SimpleData>
+		<SimpleData name="ARTIST">Jane Buyers</SimpleData>
+		<SimpleData name="INSTALLED">2004</SimpleData>
+		<SimpleData name="MATERIAL">Bronze</SimpleData>
+		<SimpleData name="LOCATION">RIM Park - Martin Farm (across the golf road from the ...)</SimpleData>
+		<SimpleData name="TOUR_AREA">RIM Park</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870635208951465_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.4943598351191</SimpleData>
+		<SimpleData name="LATITUDE">43.517618868335</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.494359834999955,43.517618868000028</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">12</SimpleData>
+		<SimpleData name="TITLE">The Human Quilt</SimpleData>
+		<SimpleData name="ARTIST">Réal Faulkenham</SimpleData>
+		<SimpleData name="INSTALLED">2000</SimpleData>
+		<SimpleData name="MATERIAL">Paint on marine quality plywood</SimpleData>
+		<SimpleData name="LOCATION">Waterloo Memorial Recreation Complex - Front Exterior Wall</SimpleData>
+		<SimpleData name="TOUR_AREA">Uptown</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870645673917846_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.5319914181346</SimpleData>
+		<SimpleData name="LATITUDE">43.4640409369816</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.531991417999961,43.464040937000021</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">13</SimpleData>
+		<SimpleData name="TITLE">Prayerflags</SimpleData>
+		<SimpleData name="ARTIST">John Hofstetter</SimpleData>
+		<SimpleData name="INSTALLED">200606</SimpleData>
+		<SimpleData name="MATERIAL">Steel, glass, copper, aluminum</SimpleData>
+		<SimpleData name="LOCATION">Rotary Peace Park, RIM Park, adjacent to main building</SimpleData>
+		<SimpleData name="TOUR_AREA">RIM Park</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870643032677207_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.5036244659004</SimpleData>
+		<SimpleData name="LATITUDE">43.5185405569384</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.503624465999962,43.518540557000023</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">14</SimpleData>
+		<SimpleData name="TITLE">Choice</SimpleData>
+		<SimpleData name="ARTIST">Ruth Abernethy</SimpleData>
+		<SimpleData name="INSTALLED">2007</SimpleData>
+		<SimpleData name="MATERIAL">Stainless Steel</SimpleData>
+		<SimpleData name="LOCATION">Father David Bauer Drive – just across the road from the WMRC entrances (4 objects)</SimpleData>
+		<SimpleData name="TOUR_AREA">Uptown</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870631870389601_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.5302597442686</SimpleData>
+		<SimpleData name="LATITUDE">43.465303513115</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.530259743999977,43.465303513</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">15</SimpleData>
+		<SimpleData name="TITLE">The Waterloo Bell - Bell for Kepler</SimpleData>
+		<SimpleData name="ARTIST">Royden Rabinowitch</SimpleData>
+		<SimpleData name="INSTALLED">2009</SimpleData>
+		<SimpleData name="MATERIAL">Corten Steel</SimpleData>
+		<SimpleData name="LOCATION">Public Square – Willis Way &amp; King</SimpleData>
+		<SimpleData name="TOUR_AREA">Uptown</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870647008032189_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.5222864969917</SimpleData>
+		<SimpleData name="LATITUDE">43.4637449802513</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.522286496999982,43.46374498000003</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">16</SimpleData>
+		<SimpleData name="TITLE">Tree</SimpleData>
+		<SimpleData name="ARTIST">Paul Frenette</SimpleData>
+		<SimpleData name="INSTALLED">2009</SimpleData>
+		<SimpleData name="MATERIAL">Black Maple wood</SimpleData>
+		<SimpleData name="LOCATION">Grey Silo Golf Course (1st fairway)</SimpleData>
+		<SimpleData name="TOUR_AREA">RIM Park</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870647981005898_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.4883896933277</SimpleData>
+		<SimpleData name="LATITUDE">43.5149709040592</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.488389692999988,43.514970904000023</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">17</SimpleData>
+		<SimpleData name="TITLE">Rein in the Wind</SimpleData>
+		<SimpleData name="ARTIST">Carlos Basanta</SimpleData>
+		<SimpleData name="INSTALLED">2011</SimpleData>
+		<SimpleData name="MATERIAL">Stainless Steel</SimpleData>
+		<SimpleData name="LOCATION">RIM Park Premier Sports Fields - entrance feature</SimpleData>
+		<SimpleData name="TOUR_AREA">RIM Park</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870644225923303_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.4991712059559</SimpleData>
+		<SimpleData name="LATITUDE">43.5196522458138</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.499171205999971,43.519652246000021</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">18</SimpleData>
+		<SimpleData name="TITLE">Choice</SimpleData>
+		<SimpleData name="ARTIST">Ruth Abernethy</SimpleData>
+		<SimpleData name="INSTALLED">2007</SimpleData>
+		<SimpleData name="MATERIAL">Stainless Steel</SimpleData>
+		<SimpleData name="LOCATION">Father David Bauer Drive – just across the road from the WMRC entrances (4 objects)</SimpleData>
+		<SimpleData name="TOUR_AREA">Uptown</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870632585026857_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.531835610064</SimpleData>
+		<SimpleData name="LATITUDE">43.4652668667418</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.531835609999973,43.465266867000025</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">19</SimpleData>
+		<SimpleData name="TITLE">Choice</SimpleData>
+		<SimpleData name="ARTIST">Ruth Abernethy</SimpleData>
+		<SimpleData name="INSTALLED">2007</SimpleData>
+		<SimpleData name="MATERIAL">Stainless Steel</SimpleData>
+		<SimpleData name="LOCATION">Father David Bauer Drive – just across the road from the WMRC entrances (4 objects)</SimpleData>
+		<SimpleData name="TOUR_AREA">Uptown</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870633144287839_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.5367049303715</SimpleData>
+		<SimpleData name="LATITUDE">43.4644226417745</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.536704929999985,43.464422642000017</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">20</SimpleData>
+		<SimpleData name="TITLE">Choice</SimpleData>
+		<SimpleData name="ARTIST">Ruth Abernethy</SimpleData>
+		<SimpleData name="INSTALLED">2007</SimpleData>
+		<SimpleData name="MATERIAL">Stainless Steel</SimpleData>
+		<SimpleData name="LOCATION">Father David Bauer Drive – just across the road from the WMRC entrances (4 objects)</SimpleData>
+		<SimpleData name="TOUR_AREA">Uptown</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="URL">http://www.waterloo.ca/uploads/634870633862513100_Final.jpg</SimpleData>
+		<SimpleData name="LONGITUDE">-80.5373703497618</SimpleData>
+		<SimpleData name="LATITUDE">43.4639885848173</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.537370349999946,43.46398858500001</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">21</SimpleData>
+		<SimpleData name="TITLE">Water to Fire</SimpleData>
+		<SimpleData name="ARTIST">Ernest Daetwyler</SimpleData>
+		<SimpleData name="INSTALLED">2001-12</SimpleData>
+		<SimpleData name="MATERIAL">Wood</SimpleData>
+		<SimpleData name="LOCATION">Fire Station no 4 - University Ave E</SimpleData>
+		<SimpleData name="TOUR_AREA">RIM Park</SimpleData>
+		<SimpleData name="OWNER">COW</SimpleData>
+		<SimpleData name="STATUS">pending</SimpleData>
+		<SimpleData name="LONGITUDE">-80.4981116448066</SimpleData>
+		<SimpleData name="LATITUDE">43.5140153766932</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.498111644999938,43.514015377000021</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#OGRGeoJSON">
+		<SimpleData name="OBJECTID">22</SimpleData>
+		<SimpleData name="TITLE">(2 sculptures - C2G2)</SimpleData>
+		<SimpleData name="ARTIST">-</SimpleData>
+		<SimpleData name="INSTALLED">-</SimpleData>
+		<SimpleData name="MATERIAL">-</SimpleData>
+		<SimpleData name="LOCATION">Canadian Clay &amp; Glass Gallery - Caroline &amp; Erb</SimpleData>
+		<SimpleData name="TOUR_AREA">Uptown</SimpleData>
+		<SimpleData name="OWNER">C2G2</SimpleData>
+		<SimpleData name="STATUS">installed</SimpleData>
+		<SimpleData name="LONGITUDE">-80.5258214723374</SimpleData>
+		<SimpleData name="LATITUDE">43.4647496209829</SimpleData>
+		<SimpleData name="CreationDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Creator">OpenData_Waterloo</SimpleData>
+		<SimpleData name="EditDate">2015-09-23T13:50:37.762Z</SimpleData>
+		<SimpleData name="Editor">OpenData_Waterloo</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-80.525821471999961,43.46474962100001</coordinates></Point>
+  </Placemark>
+</Folder>
+</Document></kml>
