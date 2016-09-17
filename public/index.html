@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Welcome to Firebase Hosting</title>
+    <title>Dunia</title>
     <style media="screen">
       body {
         font-family: Roboto, Arial, sans-serif;
@@ -12,6 +12,22 @@
 
       a {
         color: rgb(3,155,229);
+      }
+
+      #header {
+        max-width: 500px;
+        margin: 40px auto;
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2),0 1px 1px 0 rgba(0,0,0,0.14),0 2px 1px -1px rgba(0,0,0,0.12);
+        border-radius: 2px;
+        background: white;
+        padding: 16px 24px;
+      }
+
+      #header h1 {
+        font-size: 42px;
+        font-weight: 500;
+        text-align: center;
+        margin: 0 0 16px;
       }
 
       #message {
@@ -62,6 +78,9 @@
     </style>
   </head>
   <body>
+    <div id="header">
+      <h1 >Where Should We Go?</h1>
+    </div>
     <div id="map"></div>
     <div id="message">
       <h1>Welcome to Firebase Hosting</h1>
@@ -75,8 +94,8 @@
       var map;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 43, lng: -82},
-          zoom: 8
+          center: {lat: 43.47, lng: -80.5},
+          zoom: 12
         });
       }
     </script>
