@@ -108,6 +108,41 @@ Dunia.prototype.checkSetup = function() {
   }
 };
 
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 43.47, lng: -80.5},
+    zoom: 12,
+    styles: [{
+      featureType: 'poi',
+      stylers: [{ visibility: 'off' }] // Turn off points of interest.
+    }, {
+      featureType: 'transit.station',
+      stylers: [{ visibility: 'off' }] // Turn off bus stations, train stations, etc.
+    }],
+    disableDoubleClickZoom: true,
+    scrollwheel: false
+  });
+
+  var placesRef = firebase.database().ref('places');
+  // Add custom markers
+  map.addListener('click', function(event) {
+    console.log("Click event @" + event.latLng);
+    placesRef.push({lat: event.latLng.lat(), lng: event.latLng.lng()});
+  });
+
+  // Update markers with database
+  placesRef.on('child_added', function(snapshot) {
+    var place = snapshot.val();
+    if(place == null) return;
+    console.log("Marker added @" + place);
+    new google.maps.Marker({
+      position: {lat: place.lat, lng: place.lng},
+      map: map
+    });
+  });
+}
+
 window.onload = function() {
   window.dunia = new Dunia();
+  google.load("maps", "3", {other_params: 'key=AIzaSyAHafQFb_sniyg-XC5B_C1oW23sjV1ubIA', callback: initMap})
 };
