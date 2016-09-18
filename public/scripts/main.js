@@ -187,19 +187,31 @@ Dunia.prototype.initMap = function() {
     scrollwheel: false
   });
 
+  // A single window to be open at a time.
+  this.infoWindow = new google.maps.InfoWindow();
+  this.newMarker = new google.maps.Marker();
+
   // Add custom markers
-  this.map.addListener('click', function(event) {
+  this.map.addListener('click', (function(event) {
     console.log("Click event @" + event.latLng);
-    firebase.database().ref('places').push({lat: event.latLng.lat(), lng: event.latLng.lng()});
-  });
+
+    // Place marker at location
+    this.newMarker.setPosition(event.latLng);
+    this.newMarker.setMap(this.map);
+
+    // Open "New Place" window
+    this.infoWindow.setContent("Add a new place!");
+    this.infoWindow.open(this.map, this.newMarker);
+    // Callback to remove marker if window is closed
+    this.infoWindow.addListener('closeclick', (function() {
+      this.newMarker.setMap(null);
+    }).bind(this));
+    //firebase.database().ref('places').push({lat: event.latLng.lat(), lng: event.latLng.lng()});
+  }).bind(this));
 
   // Add/Change/Remove markers with database
   var add_marker_callback = function(snapshot) {
-    console.log("Marker added with id " + snapshot.key);
-    this.markers[snapshot.key] = new google.maps.Marker({
-      position: {lat: snapshot.val().lat, lng: snapshot.val().lng},
-      map: this.map
-    });
+    this.createPlace(snapshot.key, snapshot.val());
   };
   var change_marker_callback = function(snapshot) {
     console.log("Marker changed with id " + snapshot.key);
@@ -213,6 +225,19 @@ Dunia.prototype.initMap = function() {
   firebase.database().ref('places').on('child_added', add_marker_callback.bind(this));
   firebase.database().ref('places').on('child_changed', change_marker_callback.bind(this));
   firebase.database().ref('places').on('child_removed', remove_marker_callback.bind(this));
+}
+
+Dunia.prototype.createPlace = function(key, latLng) {
+  console.log("Marker added with id " + key);
+  this.markers[key] = new google.maps.Marker({
+    position: {lat: latLng.lat, lng: latLng.lng},
+    map: this.map
+  });
+  this.markers[key].addListener('click', (function() {
+    console.log("Marker selected with id " + key);
+    this.infoWindow.setContent("Add " + key + ' to visited');
+    this.infoWindow.open(this.map, this.markers[key]);
+  }).bind(this));
 }
 
 window.onload = function() {
