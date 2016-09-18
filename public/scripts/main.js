@@ -38,6 +38,9 @@ function Dunia() {
   this.map = null;
   this.markers = {};
 
+  // User ID
+  this.userId = null;
+
   this.initFirebase();
 }
 
@@ -51,8 +54,15 @@ Dunia.LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
 Dunia.VISITED_TEMPLATE =
     '<div class="places-container">' +
       '<div class="spacing"><div class="pic"></div></div>' +
-      '<div class="place"><div class="lat"></div><div class="lng"></div></div>' +
-      '<div class="name"></div>' +
+      '<div class="place">Title of Place</div>' +
+      '<div class="name"><div class="lat"></div><div class="lng"></div></div>' +
+    '</div>';
+
+Dunia.TOVISIT_TEMPLATE =
+    '<div class="places-container">' +
+      '<div class="spacing"><input type="checkbox" class="check"></input></div>' +
+      '<div class="place">Title of Place</div>' +
+      '<div class="name"><div class="lat"></div><div class="lng"></div></div>' +
     '</div>';
 
 //
@@ -71,23 +81,23 @@ Dunia.prototype.initFirebase = function() {
 // Loads visted places and listen for new ones.
 Dunia.prototype.loadList = function(user, list) {
   // Ref to the /visited/ database path
-  this.visitedRef = this.database.ref(list + '/' + user.uid);
+  console.log("Retrieving " + list + "/" + user.uid);
+  this.listRef = this.database.ref(list + '/' + user.uid);
   // remove all previous listeners
-  this.visitedRef.off();
+  this.listRef.off();
 
   // Load last 12 messages and listen for new ones
-  
-  var setVisited = function(data) {
-    var that = this;
-    var placeId = data.val();
+  var that = this;
+  var setPlace = function(data) {
+    var placeId = data.key;
     console.log('Retrieving places/' + placeId);
-    var placeRef = this.database.ref('places/' + placeId).once('value').then(function(snapshot) {
+    var placeRef = that.database.ref('places/' + placeId).once('value').then(function(snapshot) {
       var place = snapshot.val();
       that.displayList(list, placeId, place.lat, place.lng);
     });
-  }.bind(this);
-  this.visitedRef.limitToLast(12).on('child_added', setVisited);
-  this.visitedRef.limitToLast(12).on('child_changed', setVisited);
+  };
+  this.listRef.limitToLast(12).on('child_added', setPlace);
+  this.listRef.limitToLast(12).on('child_changed', setPlace);
 };
 
 // Displays a Visited Place in the List.
@@ -101,34 +111,42 @@ Dunia.prototype.displayList = function(list, key, lat, lng) {
   // If an element for that place does not exist yet we create it.
   if (!div) {
     var container = document.createElement('div');
+
     container.innerHTML = Dunia.VISITED_TEMPLATE;
+    if (list == 'tovisit') {
+      container.innerHTML = Dunia.TOVISIT_TEMPLATE;
+    }
     div = container.firstChild;
     div.setAttribute('id', key);
+
     listContainer.appendChild(div);
   }
-  /*if (picUrl) {
-    div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
-  }*/
   div.querySelector('.lat').textContent = lat;
   div.querySelector('.lng').textContent = lng;
-  /*var messageElement = div.querySelector('.message');
-  if (lat) { // If the message is text.
-    messageElement.textContent = text;
-    // Replace all line breaks by <br>.
-    messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
-  } else if (imageUri) { // If the message is an image.
-    var image = document.createElement('img');
-    image.addEventListener('load', function() {
-      this.messageList.scrollTop = this.messageList.scrollHeight;
-    }.bind(this));
-    this.setImageUrl(imageUri, image);
-    messageElement.innerHTML = '';
-    messageElement.appendChild(image);
-  }*/
+
+  if (list == 'tovisit') {
+    var checkElement = div.querySelector('.check');
+    var that = this;
+    checkElement.addEventListener('change', function(event) {
+      if (event.target.checked) {
+        console.log('Writing to visited list');
+        // Add a new place in visited list
+        that.database.ref('tovisit/' + that.userId + '/' + key).remove().then(function() {
+          //remove container
+          document.getElementById(key).remove();
+          that.database.ref('visited/' + that.userId + '/' + key).set(1);
+        }).catch(function(error) {
+          console.error('Error removing "to visit" place' + error);
+        });
+      } else {
+        console.log("Checkbox unchecked...");
+      }
+    });
+  }
+
   // Show the card fading-in.
   setTimeout(function() {div.classList.add('visible')}, 1);
   listContainer.scrollTop = listContainer.scrollHeight;
-  //this.placeInput.focus();
 };
 
 // Signs-in Dunia
@@ -146,6 +164,7 @@ Dunia.prototype.signOut = function() {
 // Triggers when the auth state change for instance when the user signs-in or signs-out.
 Dunia.prototype.onAuthStateChanged = function(user) {
   if (user) { // User is signed in!
+    this.userId = user.uid;
     // Get profile pic and user's name from the Firebase user object.
     var profilePicUrl = user.photoURL;   // Get profile pic.
     var userName = user.displayName;        // Get user's name.
