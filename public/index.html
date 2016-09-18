@@ -38,42 +38,32 @@
     <h6>Check out these cool places</h6>
   </div>
 
-  <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
-    
-    <!-- Locations container -->
-    <div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+  <div id="map"></div>
+
+  <div id="places-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
+    <!-- Visited container -->
+    <div id="places-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
       <div class="mdl-card__supporting-text mdl-color-text--grey-600">
         <h3>Places You've Visited</h3>
         <div id="visited">
           <span id="visited-filler"></span>
         </div>
-        <form id="message-form" action="#">
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" id="message">
-            <label class="mdl-textfield__label" for="message">Location...</label>
-          </div>
-          <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-            Add
-          </button>
-        </form>
-        <!--<form id="image-form" action="#">
-          <input id="mediaCapture" type="file" accept="image/*,capture=camera">
-          <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
-            <i class="material-icons">image</i>
-          </button>
-        </form>-->
       </div>
     </div>
-    <!--<div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
-      <div class="mdl-snackbar__text"></div>
-      <button class="mdl-snackbar__action" type="button"></button>
-    </div>-->
   </div>
-  <div id="map"></div>
-  <div id="content-window">
-    <h1>Click on Interest Points for Info</h1>
-    <div id="map-content"></div>
+
+  <div id="places-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
+    <!-- To Visit container -->
+    <div id="places-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+      <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+        <h3>Places To Visit</h3>
+        <div id="tovisit">
+          <span id="tovisit-filler"></span>
+        </div>
+      </div>
+    </div>
   </div>
+
   <!-- Firebase -->    
   <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
   <script>

@@ -6,7 +6,7 @@ function Dunia() {
   // Shortcuts to DOM Elements.
   this.visitedList = document.getElementById('visited');
   this.messageForm = document.getElementById('message-form');
-  this.messageInput = document.getElementById('message');
+  this.placeInput = document.getElementById('place');
   this.submitButton = document.getElementById('submit');
   this.submitImageButton = document.getElementById('submitImage');
   this.imageForm = document.getElementById('image-form');
@@ -24,8 +24,8 @@ function Dunia() {
 
   // Toggle for the button.
   //var buttonTogglingHandler = this.toggleButton.bind(this);
-  //this.messageInput.addEventListener('keyup', buttonTogglingHandler);
-  //this.messageInput.addEventListener('change', buttonTogglingHandler);
+  //this.placeInput.addEventListener('keyup', buttonTogglingHandler);
+  //this.placeInput.addEventListener('change', buttonTogglingHandler);
 
   // Events for image upload.
   //this.submitImageButton.addEventListener('click', function() {
@@ -48,9 +48,9 @@ Dunia.LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
 
 // Template for messages.
 Dunia.VISITED_TEMPLATE =
-    '<div class="message-container">' +
+    '<div class="places-container">' +
       '<div class="spacing"><div class="pic"></div></div>' +
-      '<div class="message"><div class="lat"></div><div class="lng"></div></div>' +
+      '<div class="place"><div class="lat"></div><div class="lng"></div></div>' +
       '<div class="name"></div>' +
     '</div>';
 
@@ -117,7 +117,7 @@ Dunia.prototype.displayVisited = function(key, lat, lng) {
   // Show the card fading-in.
   setTimeout(function() {div.classList.add('visible')}, 1);
   this.visitedList.scrollTop = this.visitedList.scrollHeight;
-  this.messageInput.focus();
+  this.placeInput.focus();
 };
 
 // Signs-in Dunia

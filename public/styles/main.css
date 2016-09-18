@@ -4,7 +4,7 @@ html, body {
   color: rgba(0,0,0,0.87);
 }
 
-main, #messages-card {
+main, #places-card {
   height: 100%;
   padding-bottom: 0;
 }
@@ -46,10 +46,10 @@ a {
 #visited-filler {
   flex-grow: 1;
 }
-.message-container:first-of-type {
+.places-container:first-of-type {
   border-top-width: 0;
 }
-.message-container {
+.places-container {
   display: block;
   margin-top: 10px;
   border-top: 1px solid #f3f3f3;
@@ -57,10 +57,10 @@ a {
   opacity: 0;
   transition: opacity 1s ease-in-out;
 }
-.message-container.visible {
+.places-container.visible {
   opacity: 1;
 }
-.message-container .pic {
+.places-container .pic {
   background-image: url('/images/profile_placeholder.png');
   background-repeat: no-repeat;
   width: 30px;
@@ -68,16 +68,16 @@ a {
   background-size: 30px;
   border-radius: 20px;
 }
-.message-container .spacing {
+.places-container .spacing {
   display: table-cell;
   vertical-align: top;
 }
-.message-container .message {
+.places-container .place {
   display: table-cell;
   width: calc(100% - 40px);
   padding: 5px 0 5px 10px;
 }
-.message-container .name {
+.places-container .name {
   display: inline-block;
   width: 100%;
   padding-left: 40px;
