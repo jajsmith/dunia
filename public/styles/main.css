@@ -95,8 +95,10 @@ a {
   box-sizing: border-box;
 }
 
-#blk {
-  display: block;
+#placeTitle {
+  text-align: center;
+  font-size: 16px;
+  margin: 8px;
 }
 
 .mdl-card {
