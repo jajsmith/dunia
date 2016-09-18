@@ -95,12 +95,35 @@ a {
   box-sizing: border-box;
 }
 
+#blk {
+  display: block;
+}
+
 .mdl-card {
   min-height: 0;
 }
 .mdl-card {
   background: linear-gradient(white, #f9f9f9);
   justify-content: space-between;
+}
+#message-form {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  float: left;
+}
+#image-form {
+  display: flex;
+  flex-direction: row;
+  width: 48px;
+  float: right;
+}
+#message-form .mdl-textfield {
+  width: 70%;
+}
+#message-form button {
+  vertical-align: center;
+  margin-top: 15px;
 }
 #user-container {
   position: absolute;

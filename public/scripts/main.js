@@ -37,6 +37,7 @@ function Dunia() {
   // Properties for map.
   this.map = null;
   this.markers = {};
+  this.newTitle = '';
 
   // User ID
   this.userId = null;
@@ -62,7 +63,7 @@ Dunia.VISITED_TEMPLATE =
 Dunia.TOVISIT_TEMPLATE =
     '<div class="places-container">' +
       '<div class="spacing"><input type="checkbox" class="check"></input></div>' +
-      '<div class="place">Title of Place</div>' +
+      '<div class="place"></div>' +
       '<div class="name"><div class="lat"></div><div class="lng"></div></div>' +
     '</div>';
 
@@ -95,9 +96,9 @@ Dunia.prototype.loadList = function(user, list) {
     var placeRef = that.database.ref('places/' + placeId).once('value').then(function(snapshot) {
       var place = snapshot.val();
       if (place.hasOwnProperty('submitterPicUrl')) {
-        that.displayList(list, placeId, place.lat, place.lng, place.submitterPicUrl);
+        that.displayList(list, placeId, place.lat, place.lng, place.submitterPicUrl, place.title);
       } else {
-        that.displayList(list, placeId, place.lat, place.lng, '');
+        that.displayList(list, placeId, place.lat, place.lng, '', '');
       }
       
     });
@@ -111,7 +112,7 @@ Dunia.prototype.loadList = function(user, list) {
 };
 
 // Displays a Visited Place in the List.
-Dunia.prototype.displayList = function(list, key, lat, lng, submitterPicUrl) {
+Dunia.prototype.displayList = function(list, key, lat, lng, submitterPicUrl, title) {
   console.log("Displaying key: " + key);
   var div = document.getElementById(key);
   var listContainer = this.visitedList;
@@ -134,7 +135,10 @@ Dunia.prototype.displayList = function(list, key, lat, lng, submitterPicUrl) {
   
   div.querySelector('.lat').textContent = lat;
   div.querySelector('.lng').textContent = lng;
-
+  if (title) {
+    div.querySelector('.place').textContent = title;
+  }
+  
   if (list == 'tovisit') {
     var checkElement = div.querySelector('.check');
     var that = this;
@@ -155,7 +159,7 @@ Dunia.prototype.displayList = function(list, key, lat, lng, submitterPicUrl) {
     });
   } else {
     if (submitterPicUrl) {
-      div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
+      div.querySelector('.pic').style.backgroundImage = 'url(' + submitterPicUrl + ')';
     }
   }
 
@@ -274,7 +278,13 @@ Dunia.prototype.newPlace = function(latLng) {
   this.newMarker.setMap(this.map);
 
   // Open "New Place" window
-  this.infoWindow.setContent("Add a new place! <input type='button' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' id='submit-place' value='Submit'>");
+  this.infoWindow.setContent(
+            '<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">' +
+              '<input class="mdl-textfield__input" type="text" id="titleText" placeholder="Title...">' +
+              //'<label class="mdl-textfield__label" for="message">Message...</label>' +
+            '</div>'+
+            "<button class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' id='submit-place' >Submit</button>"
+            );
   this.infoWindow.open(this.map, this.newMarker);
   var submit_place = document.getElementById('submit-place');
   submit_place.onclick = this.submitNewPlace.bind(this);
@@ -291,7 +301,9 @@ Dunia.prototype.submitNewPlace = function() {
 
   // Push new place to database
   firebase.database().ref('places').push({lat: this.newMarker.getPosition().lat(),
-                                          lng: this.newMarker.getPosition().lng()});
+                                          lng: this.newMarker.getPosition().lng(),
+                                          title: document.getElementById('titleText').value,
+                                          submitterPicUrl: this.userPicUrl});
   // Remove temporary place
   this.removeNewPlace();
 }
@@ -321,7 +333,7 @@ Dunia.prototype.loadPlace = function(key, latLng) {
     this.removeNewPlace();
 
     // Open "Place" window
-    this.infoWindow.setContent("<input type='button' id='add-list-visited' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add to Visited'> <input type='button' id='add-list-tovisit' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add as Place to Visit'>");
+    this.infoWindow.setContent("<input type='button' id='add-list-visited' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add to Visited'>  <input type='button' id='add-list-tovisit' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add as Place to Visit'>");
     this.infoWindow.open(this.map, this.markers[key]);
     document.getElementById('add-list-visited').onclick = this.addToList.bind(this, key, 'visited');
     document.getElementById('add-list-tovisit').onclick = this.addToList.bind(this, key, 'tovisit');
