@@ -273,7 +273,7 @@ Dunia.prototype.newPlace = function(latLng) {
   this.newMarker.setMap(this.map);
 
   // Open "New Place" window
-  this.infoWindow.setContent("Add a new place! <input type='button' id='submit-place' value='Submit'>");
+  this.infoWindow.setContent("Add a new place! <input type='button' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' id='submit-place' value='Submit'>");
   this.infoWindow.open(this.map, this.newMarker);
   var submit_place = document.getElementById('submit-place');
   submit_place.onclick = this.submitNewPlace.bind(this);
@@ -320,7 +320,7 @@ Dunia.prototype.loadPlace = function(key, latLng) {
     this.removeNewPlace();
 
     // Open "Place" window
-    this.infoWindow.setContent("<input type='button' id='add-list-visited' value='Add to Visited'> <input type='button' id='add-list-tovisit' value='Add to To-Visit'>");
+    this.infoWindow.setContent("<input type='button' id='add-list-visited' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add to Visited'> <input type='button' id='add-list-tovisit' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add to To-Visit'>");
     this.infoWindow.open(this.map, this.markers[key]);
     document.getElementById('add-list-visited').onclick = this.addToList.bind(this, key, 'visited');
     document.getElementById('add-list-tovisit').onclick = this.addToList.bind(this, key, 'tovisit');
