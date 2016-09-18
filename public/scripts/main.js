@@ -206,25 +206,12 @@ Dunia.prototype.initMap = function() {
 
   // Add custom markers
   this.map.addListener('click', (function(event) {
-    console.log("Click event @" + event.latLng);
-
-    // Place marker at location
-    this.newMarker.setPosition(event.latLng);
-    this.newMarker.setMap(this.map);
-
-    // Open "New Place" window
-    this.infoWindow.setContent("Add a new place!");
-    this.infoWindow.open(this.map, this.newMarker);
-    // Callback to remove marker if window is closed
-    this.infoWindow.addListener('closeclick', (function() {
-      this.newMarker.setMap(null);
-    }).bind(this));
-    //firebase.database().ref('places').push({lat: event.latLng.lat(), lng: event.latLng.lng()});
+    this.newPlace(event.latLng);
   }).bind(this));
 
   // Add/Change/Remove markers with database
   var add_marker_callback = function(snapshot) {
-    this.createPlace(snapshot.key, snapshot.val());
+    this.loadPlace(snapshot.key, snapshot.val());
   };
   var change_marker_callback = function(snapshot) {
     console.log("Marker changed with id " + snapshot.key);
@@ -240,7 +227,46 @@ Dunia.prototype.initMap = function() {
   firebase.database().ref('places').on('child_removed', remove_marker_callback.bind(this));
 }
 
-Dunia.prototype.createPlace = function(key, latLng) {
+Dunia.prototype.newPlace = function(latLng) {
+  console.log("Click event @" + latLng);
+
+  // Remove previous new place
+  this.removeNewPlace();
+
+  // Place marker at location
+  this.newMarker.setPosition(latLng);
+  this.newMarker.setMap(this.map);
+
+  // Open "New Place" window
+  this.infoWindow.setContent("Add a new place! <input type='button' id='submit-place' value='Submit'>");
+  this.infoWindow.open(this.map, this.newMarker);
+  var submit_place = document.getElementById('submit-place');
+  submit_place.onclick = this.submitNewPlace.bind(this);
+
+  // Callback to remove marker if window is closed
+  this.infoWindow.addListener('closeclick', (function() {
+    this.newMarker.setMap(null);
+  }).bind(this));
+  //firebase.database().ref('places').push({lat: event.latLng.lat(), lng: event.latLng.lng()});
+}
+
+Dunia.prototype.submitNewPlace = function() {
+  console.log("Submitting new place.");
+
+  firebase.database().ref('places').push({lat: this.newMarker.getPosition().lat(),
+                                          lng: this.newMarker.getPosition().lng()});
+  this.removeNewPlace();
+}
+
+Dunia.prototype.removeNewPlace = function() {
+  // Remove marker
+  this.newMarker.setMap(null);
+
+  // Close "New Place" window
+  this.infoWindow.close();
+}
+
+Dunia.prototype.loadPlace = function(key, latLng) {
   console.log("Marker added with id " + key);
   this.markers[key] = new google.maps.Marker({
     position: {lat: latLng.lat, lng: latLng.lng},
@@ -248,9 +274,25 @@ Dunia.prototype.createPlace = function(key, latLng) {
   });
   this.markers[key].addListener('click', (function() {
     console.log("Marker selected with id " + key);
-    this.infoWindow.setContent("Add " + key + ' to visited');
+
+    // Remove previous new place
+    this.removeNewPlace();
+
+    // Open "Place" window
+    this.infoWindow.setContent("<input type='button' id='add-list-visited' value='Add to Visited'> <input type='button' id='add-list-to-visit' value='Add to To-Visit'>");
     this.infoWindow.open(this.map, this.markers[key]);
+    document.getElementById('add-list-visited').onclick = this.addToList.bind(this, key, 'visited');
+    document.getElementById('add-list-to-visit').onclick = this.addToList.bind(this, key, 'to-visit');
   }).bind(this));
+}
+
+Dunia.prototype.addToList = function(key, list) {
+  if(list == 'visited') {
+    console.log('Place ' + key + ' added to list Visited');
+  } else if(list == 'to-visit') {
+    console.log('Place ' + key + ' added to list To-Visit');
+  }
+  firebase.database().ref(list + '/' + this.userId).push({key: 1});
 }
 
 window.onload = function() {
