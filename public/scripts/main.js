@@ -38,6 +38,11 @@ function Dunia() {
   this.map = null;
   this.markers = {};
   this.newTitle = '';
+  this.markerIconRed    = 'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=|FF0000';
+  this.markerIconYellow = 'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=|FFFF00';
+  this.markerIconGreen  = 'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=|00FF00';
+  this.markerIconBlue   = 'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=|6699FF';
+  this.markerIconPurple = 'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=|9933FF';
 
   // User ID
   this.userId = null;
@@ -129,6 +134,7 @@ Dunia.prototype.displayList = function(list, key, lat, lng, submitterPicUrl, tit
     }
     div = container.firstChild;
     div.setAttribute('id', key);
+    div.setAttribute('onclick', 'window.dunia.map.panTo({lat:' + lat + ', lng:' + lng + '})'); // Yes, this fully qualifies the map; it is hacky by necessity.
 
     listContainer.appendChild(div);
   }
@@ -324,6 +330,16 @@ Dunia.prototype.loadPlace = function(key, place) {
     position: {lat: place.lat, lng: place.lng},
     map: this.map
   });
+  var that = this;
+  this.markers[key].setIcon(this.markerIconRed);
+  firebase.database().ref('tovisit/' + this.userId + '/' + key).once('value').then(function(snapshot) {
+    if(snapshot.exists())
+      that.markers[key].setIcon(that.markerIconYellow);
+  });
+  firebase.database().ref('visited/' + this.userId + '/' + key).once('value').then(function(snapshot) {
+    if(snapshot.exists())
+      that.markers[key].setIcon(that.markerIconGreen);
+  });
 
   // Set marker click listener
   this.markers[key].addListener('click', (function() {
@@ -342,15 +358,18 @@ Dunia.prototype.loadPlace = function(key, place) {
 	'<input type="button" id="add-list-tovisit" class="mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value="Add as Place to Visit">'
       );
       that.infoWindow.open(that.map, that.markers[key]);
-      document.getElementById('add-list-visited').onclick = that.addToList.bind(that, key, 'visited');
-      document.getElementById('add-list-tovisit').onclick = that.addToList.bind(that, key, 'tovisit');
+      document.getElementById('add-list-visited').onclick = that.addToList.bind(that, key, /*snapshot.val(),*/ 'visited');
+      document.getElementById('add-list-tovisit').onclick = that.addToList.bind(that, key, /*snapshot.val(),*/ 'tovisit');
     });
   }).bind(this));
 }
 
-Dunia.prototype.addToList = function(key, list) {
+Dunia.prototype.addToList = function(key, /*place,*/ list) {
   console.log('Place ' + key + ' added to list ' + list);
   firebase.database().ref(list + '/' + this.userId + '/' + key).set(1);
+
+  // Reload place
+  //this.loadPlace(key, place);
 
   // Hide window
   this.infoWindow.setMap(null);
