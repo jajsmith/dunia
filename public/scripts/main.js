@@ -37,9 +37,11 @@ function Dunia() {
   // Properties for map.
   this.map = null;
   this.markers = {};
+  this.newTitle = '';
 
   // User ID
   this.userId = null;
+  this.userPicUrl = null;
 
   this.initFirebase();
 }
@@ -61,7 +63,7 @@ Dunia.VISITED_TEMPLATE =
 Dunia.TOVISIT_TEMPLATE =
     '<div class="places-container">' +
       '<div class="spacing"><input type="checkbox" class="check"></input></div>' +
-      '<div class="place">Title of Place</div>' +
+      '<div class="place"></div>' +
       '<div class="name"><div class="lat"></div><div class="lng"></div></div>' +
     '</div>';
 
@@ -93,15 +95,24 @@ Dunia.prototype.loadList = function(user, list) {
     console.log('Retrieving places/' + placeId);
     var placeRef = that.database.ref('places/' + placeId).once('value').then(function(snapshot) {
       var place = snapshot.val();
-      that.displayList(list, placeId, place.lat, place.lng);
+      if (place.hasOwnProperty('submitterPicUrl')) {
+        that.displayList(list, placeId, place.lat, place.lng, place.submitterPicUrl, place.title);
+      } else {
+        that.displayList(list, placeId, place.lat, place.lng, '', '');
+      }
+      
     });
+  };
+  var removePlace = function(data) {
+    document.getElementById(data.key).remove();
   };
   this.listRef.limitToLast(12).on('child_added', setPlace);
   this.listRef.limitToLast(12).on('child_changed', setPlace);
+  this.listRef.limitToLast(12).on('child_removed', removePlace);
 };
 
 // Displays a Visited Place in the List.
-Dunia.prototype.displayList = function(list, key, lat, lng) {
+Dunia.prototype.displayList = function(list, key, lat, lng, submitterPicUrl, title) {
   console.log("Displaying key: " + key);
   var div = document.getElementById(key);
   var listContainer = this.visitedList;
@@ -121,9 +132,13 @@ Dunia.prototype.displayList = function(list, key, lat, lng) {
 
     listContainer.appendChild(div);
   }
+  
   div.querySelector('.lat').textContent = lat;
   div.querySelector('.lng').textContent = lng;
-
+  if (title) {
+    div.querySelector('.place').textContent = title;
+  }
+  
   if (list == 'tovisit') {
     var checkElement = div.querySelector('.check');
     var that = this;
@@ -133,7 +148,7 @@ Dunia.prototype.displayList = function(list, key, lat, lng) {
         // Add a new place in visited list
         that.database.ref('tovisit/' + that.userId + '/' + key).remove().then(function() {
           //remove container
-          document.getElementById(key).remove();
+          //document.getElementById(key).remove();
           that.database.ref('visited/' + that.userId + '/' + key).set(1);
         }).catch(function(error) {
           console.error('Error removing "to visit" place' + error);
@@ -142,6 +157,10 @@ Dunia.prototype.displayList = function(list, key, lat, lng) {
         console.log("Checkbox unchecked...");
       }
     });
+  } else {
+    if (submitterPicUrl) {
+      div.querySelector('.pic').style.backgroundImage = 'url(' + submitterPicUrl + ')';
+    }
   }
 
   // Show the card fading-in.
@@ -167,6 +186,7 @@ Dunia.prototype.onAuthStateChanged = function(user) {
     this.userId = user.uid;
     // Get profile pic and user's name from the Firebase user object.
     var profilePicUrl = user.photoURL;   // Get profile pic.
+    this.userPicUrl = profilePicUrl;
     var userName = user.displayName;        // Get user's name.
 
     // Set the user's profile pic and name.
@@ -216,7 +236,8 @@ Dunia.prototype.initMap = function() {
       stylers: [{ visibility: 'off' }] // Turn off bus stations, train stations, etc.
     }],
     disableDoubleClickZoom: true,
-    scrollwheel: false
+    scrollwheel: false,
+    mapType: 'roadmap'
   });
 
   // A single window to be open at a time.
@@ -257,7 +278,13 @@ Dunia.prototype.newPlace = function(latLng) {
   this.newMarker.setMap(this.map);
 
   // Open "New Place" window
-  this.infoWindow.setContent("<input type='text' id='new-place-title' value='Title'> <input type='button' id='new-place-submit' value='Submit'>");
+  this.infoWindow.setContent(
+            '<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">' +
+              '<input class="mdl-textfield__input" type="text" id="titleText" placeholder="Title...">' +
+              //'<label class="mdl-textfield__label" for="message">Message...</label>' +
+            '</div>'+
+            "<button class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' id='new-place-submit' >Submit</button>"
+            );
   this.infoWindow.open(this.map, this.newMarker);
   var place_submit = document.getElementById('new-place-submit');
   place_submit.onclick = (function() {
@@ -280,7 +307,8 @@ Dunia.prototype.submitNewPlace = function(place_title) {
   // Push new place to database
   firebase.database().ref('places').push({lat: this.newMarker.getPosition().lat(),
                                           lng: this.newMarker.getPosition().lng(),
-                                          title: place_title});
+                                          title: document.getElementById('titleText').value,
+                                          submitterPicUrl: this.userPicUrl});
   // Remove temporary place
   this.removeNewPlace();
 }
@@ -310,7 +338,7 @@ Dunia.prototype.loadPlace = function(key, place) {
     this.removeNewPlace();
 
     // Open "Place" window
-    this.infoWindow.setContent("<h>" + place.title + "</h> <input type='button' id='add-list-visited' value='Add to Visited'> <input type='button' id='add-list-tovisit' value='Add to To-Visit'>");
+    this.infoWindow.setContent("<input type='button' id='add-list-visited' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add to Visited'>  <input type='button' id='add-list-tovisit' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add as Place to Visit'>");
     this.infoWindow.open(this.map, this.markers[key]);
     document.getElementById('add-list-visited').onclick = this.addToList.bind(this, key, 'visited');
     document.getElementById('add-list-tovisit').onclick = this.addToList.bind(this, key, 'tovisit');
