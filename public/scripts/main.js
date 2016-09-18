@@ -102,8 +102,12 @@ Dunia.prototype.loadList = function(user, list) {
       
     });
   };
+  var removePlace = function(data) {
+    document.getElementById(data.key).remove();
+  };
   this.listRef.limitToLast(12).on('child_added', setPlace);
   this.listRef.limitToLast(12).on('child_changed', setPlace);
+  this.listRef.limitToLast(12).on('child_removed', removePlace);
 };
 
 // Displays a Visited Place in the List.
@@ -140,7 +144,7 @@ Dunia.prototype.displayList = function(list, key, lat, lng, submitterPicUrl) {
         // Add a new place in visited list
         that.database.ref('tovisit/' + that.userId + '/' + key).remove().then(function() {
           //remove container
-          document.getElementById(key).remove();
+          //document.getElementById(key).remove();
           that.database.ref('visited/' + that.userId + '/' + key).set(1);
         }).catch(function(error) {
           console.error('Error removing "to visit" place' + error);
