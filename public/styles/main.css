@@ -35,7 +35,7 @@ a {
   height: 100%;
   padding-top: 0;
 }
-#visited {
+#visited, #tovisit {
   overflow-y: auto;
   margin-bottom: 10px;
   height: calc(100% - 90px);
@@ -43,9 +43,10 @@ a {
   flex-direction: column;
   display: flex;
 }
-#visited-filler {
+#visited-filler, #tovisit-filler {
   flex-grow: 1;
 }
+
 .places-container:first-of-type {
   border-top-width: 0;
 }
@@ -85,25 +86,6 @@ a {
   font-style: italic;
   font-size: 12px;
   box-sizing: border-box;
-}
-#message-form {
-  display: flex;
-  flex-direction: row;
-  width: calc(100% - 48px);
-  float: left;
-}
-#image-form {
-  display: flex;
-  flex-direction: row;
-  width: 48px;
-  float: right;
-}
-#message-form .mdl-textfield {
-  width: calc(100% - 100px);
-}
-#message-form button, #image-form button {
-  width: 100px;
-  margin: 15px 0 0 10px;
 }
 .mdl-card {
   min-height: 0;
