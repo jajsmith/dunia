@@ -5,6 +5,7 @@ function Dunia() {
 
   // Shortcuts to DOM Elements.
   this.visitedList = document.getElementById('visited');
+  this.tovisitList = document.getElementById('tovisit');
   this.messageForm = document.getElementById('message-form');
   this.placeInput = document.getElementById('place');
   this.submitButton = document.getElementById('submit');
@@ -68,32 +69,42 @@ Dunia.prototype.initFirebase = function() {
 };
 
 // Loads visted places and listen for new ones.
-Dunia.prototype.loadVisited = function() {
+Dunia.prototype.loadList = function(user, list) {
   // Ref to the /visited/ database path
-  this.visitedRef = this.database.ref('places');
+  this.visitedRef = this.database.ref(list + '/' + user.uid);
   // remove all previous listeners
   this.visitedRef.off();
 
   // Load last 12 messages and listen for new ones
+  
   var setVisited = function(data) {
-    var val = data.val();
-    this.displayVisited(data.key, val.lat, val.lng);
+    var that = this;
+    var placeId = data.val();
+    console.log('Retrieving places/' + placeId);
+    var placeRef = this.database.ref('places/' + placeId).once('value').then(function(snapshot) {
+      var place = snapshot.val();
+      that.displayList(list, placeId, place.lat, place.lng);
+    });
   }.bind(this);
   this.visitedRef.limitToLast(12).on('child_added', setVisited);
   this.visitedRef.limitToLast(12).on('child_changed', setVisited);
 };
 
 // Displays a Visited Place in the List.
-Dunia.prototype.displayVisited = function(key, lat, lng) {
+Dunia.prototype.displayList = function(list, key, lat, lng) {
   console.log("Displaying key: " + key);
   var div = document.getElementById(key);
+  var listContainer = this.visitedList;
+  if (list == 'tovisit') {
+    listContainer = this.tovisitList;
+  }
   // If an element for that place does not exist yet we create it.
   if (!div) {
     var container = document.createElement('div');
     container.innerHTML = Dunia.VISITED_TEMPLATE;
     div = container.firstChild;
     div.setAttribute('id', key);
-    this.visitedList.appendChild(div);
+    listContainer.appendChild(div);
   }
   /*if (picUrl) {
     div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
@@ -116,8 +127,8 @@ Dunia.prototype.displayVisited = function(key, lat, lng) {
   }*/
   // Show the card fading-in.
   setTimeout(function() {div.classList.add('visible')}, 1);
-  this.visitedList.scrollTop = this.visitedList.scrollHeight;
-  this.placeInput.focus();
+  listContainer.scrollTop = listContainer.scrollHeight;
+  //this.placeInput.focus();
 };
 
 // Signs-in Dunia
@@ -152,7 +163,9 @@ Dunia.prototype.onAuthStateChanged = function(user) {
     this.signInButton.setAttribute('hidden', 'true');
 
     // We load visited places for user
-    this.loadVisited();
+    this.loadList(user, 'visited');
+    // We load places to visit for user
+    this.loadList(user, 'tovisit');
   } else { // User is signed out!
     // Hide user's profile and sign-out button.
     this.userName.setAttribute('hidden', 'true');
