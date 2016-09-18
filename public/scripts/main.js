@@ -320,7 +320,7 @@ Dunia.prototype.loadPlace = function(key, latLng) {
     this.removeNewPlace();
 
     // Open "Place" window
-    this.infoWindow.setContent("<input type='button' id='add-list-visited' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add to Visited'> <input type='button' id='add-list-tovisit' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add to To-Visit'>");
+    this.infoWindow.setContent("<input type='button' id='add-list-visited' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add to Visited'> <input type='button' id='add-list-tovisit' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add as Place to Visit'>");
     this.infoWindow.open(this.map, this.markers[key]);
     document.getElementById('add-list-visited').onclick = this.addToList.bind(this, key, 'visited');
     document.getElementById('add-list-tovisit').onclick = this.addToList.bind(this, key, 'tovisit');
