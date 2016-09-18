@@ -232,7 +232,8 @@ Dunia.prototype.initMap = function() {
       stylers: [{ visibility: 'off' }] // Turn off bus stations, train stations, etc.
     }],
     disableDoubleClickZoom: true,
-    scrollwheel: false
+    scrollwheel: false,
+    mapType: 'roadmap'
   });
 
   // A single window to be open at a time.
