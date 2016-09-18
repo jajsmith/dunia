@@ -280,35 +280,29 @@ Dunia.prototype.newPlace = function(latLng) {
 
   // Open "New Place" window
   this.infoWindow.setContent(
-            '<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">' +
-              '<input class="mdl-textfield__input" type="text" id="titleText" placeholder="Title...">' +
-              //'<label class="mdl-textfield__label" for="message">Message...</label>' +
-            '</div>'+
-            "<button class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' id='new-place-submit' >Submit</button>"
-            );
+    '<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">' +
+      '<input class="mdl-textfield__input" type="text" id="new-place-title" placeholder="Title...">' +
+      //'<label class="mdl-textfield__label" for="message">Message...</label>' +
+    '</div>'+
+    "<button class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' id='new-place-submit' >Submit</button>"
+  );
   this.infoWindow.open(this.map, this.newMarker);
   var place_submit = document.getElementById('new-place-submit');
   place_submit.onclick = (function() {
-    console.log('place_submit.onclick');
-    var place_title = document.getElementById('new-place-title');
-    console.log('place_submit.onclick with title ' + place_title.value);
-    this.submitNewPlace(place_title.value);
+    this.submitNewPlace();
   }).bind(this);
 
   // Callback to remove marker if window is closed
   this.infoWindow.addListener('closeclick', (function() {
     this.newMarker.setMap(null);
   }).bind(this));
-  //firebase.database().ref('places').push({lat: event.latLng.lat(), lng: event.latLng.lng()});
 }
 
-Dunia.prototype.submitNewPlace = function(place_title) {
-  console.log("Submitting new place named " + place_title + ".");
-
+Dunia.prototype.submitNewPlace = function() {
   // Push new place to database
   firebase.database().ref('places').push({lat: this.newMarker.getPosition().lat(),
                                           lng: this.newMarker.getPosition().lng(),
-                                          title: document.getElementById('titleText').value,
+                                          title: document.getElementById('new-place-title').value,
                                           submitterPicUrl: this.userPicUrl});
   // Remove temporary place
   this.removeNewPlace();
@@ -342,7 +336,11 @@ Dunia.prototype.loadPlace = function(key, place) {
     var that = this;
     firebase.database().ref('places/' + key).once('value').then(function(snapshot) {
       var title = snapshot.val().title;
-      that.infoWindow.setContent("<div id='placeTitle'>"+ title +"</div><input type='button' id='add-list-visited' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add to Visited'>  <input type='button' id='add-list-tovisit' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add as Place to Visit'>");
+      that.infoWindow.setContent(
+        '<div id="placeTitle">' + title + '</div> ' +
+	'<input type="button" id="add-list-visited" class="mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value="Add to Visited"> ' +
+	'<input type="button" id="add-list-tovisit" class="mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value="Add as Place to Visit">'
+      );
       that.infoWindow.open(that.map, that.markers[key]);
       document.getElementById('add-list-visited').onclick = that.addToList.bind(that, key, 'visited');
       document.getElementById('add-list-tovisit').onclick = that.addToList.bind(that, key, 'tovisit');
@@ -353,6 +351,9 @@ Dunia.prototype.loadPlace = function(key, place) {
 Dunia.prototype.addToList = function(key, list) {
   console.log('Place ' + key + ' added to list ' + list);
   firebase.database().ref(list + '/' + this.userId + '/' + key).set(1);
+
+  // Hide window
+  this.infoWindow.setMap(null);
 }
 
 window.onload = function() {
