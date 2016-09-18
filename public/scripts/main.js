@@ -40,6 +40,7 @@ function Dunia() {
 
   // User ID
   this.userId = null;
+  this.userPicUrl = null;
 
   this.initFirebase();
 }
@@ -93,7 +94,12 @@ Dunia.prototype.loadList = function(user, list) {
     console.log('Retrieving places/' + placeId);
     var placeRef = that.database.ref('places/' + placeId).once('value').then(function(snapshot) {
       var place = snapshot.val();
-      that.displayList(list, placeId, place.lat, place.lng);
+      if (place.hasOwnProperty('submitterPicUrl')) {
+        that.displayList(list, placeId, place.lat, place.lng, place.submitterPicUrl);
+      } else {
+        that.displayList(list, placeId, place.lat, place.lng, '');
+      }
+      
     });
   };
   this.listRef.limitToLast(12).on('child_added', setPlace);
@@ -101,7 +107,7 @@ Dunia.prototype.loadList = function(user, list) {
 };
 
 // Displays a Visited Place in the List.
-Dunia.prototype.displayList = function(list, key, lat, lng) {
+Dunia.prototype.displayList = function(list, key, lat, lng, submitterPicUrl) {
   console.log("Displaying key: " + key);
   var div = document.getElementById(key);
   var listContainer = this.visitedList;
@@ -121,6 +127,7 @@ Dunia.prototype.displayList = function(list, key, lat, lng) {
 
     listContainer.appendChild(div);
   }
+  
   div.querySelector('.lat').textContent = lat;
   div.querySelector('.lng').textContent = lng;
 
@@ -142,6 +149,10 @@ Dunia.prototype.displayList = function(list, key, lat, lng) {
         console.log("Checkbox unchecked...");
       }
     });
+  } else {
+    if (submitterPicUrl) {
+      div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
+    }
   }
 
   // Show the card fading-in.
@@ -167,6 +178,7 @@ Dunia.prototype.onAuthStateChanged = function(user) {
     this.userId = user.uid;
     // Get profile pic and user's name from the Firebase user object.
     var profilePicUrl = user.photoURL;   // Get profile pic.
+    this.userPicUrl = profilePicUrl;
     var userName = user.displayName;        // Get user's name.
 
     // Set the user's profile pic and name.
