@@ -69,6 +69,13 @@ a {
   background-size: 30px;
   border-radius: 20px;
 }
+.places-container .check {
+  margin-top: -1px;
+  width: 30px;
+  height: 30px;
+  background-size: 30px;
+  border-radius: 20px;
+}
 .places-container .spacing {
   display: table-cell;
   vertical-align: top;
