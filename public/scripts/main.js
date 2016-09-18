@@ -41,7 +41,7 @@ function Dunia() {
 
   // User ID
   this.userId = null;
-  this.userPicUrl = null;
+  this.userPicUrl = '';
 
   this.initFirebase();
 }
@@ -207,6 +207,7 @@ Dunia.prototype.onAuthStateChanged = function(user) {
     this.loadList(user, 'tovisit');
   } else { // User is signed out!
     // Hide user's profile and sign-out button.
+    this.userId = "anonymous";
     this.userName.setAttribute('hidden', 'true');
     this.userPic.setAttribute('hidden', 'true');
     this.signOutButton.setAttribute('hidden', 'true');
@@ -333,10 +334,14 @@ Dunia.prototype.loadPlace = function(key, latLng) {
     this.removeNewPlace();
 
     // Open "Place" window
-    this.infoWindow.setContent("<input type='button' id='add-list-visited' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add to Visited'>  <input type='button' id='add-list-tovisit' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add as Place to Visit'>");
-    this.infoWindow.open(this.map, this.markers[key]);
-    document.getElementById('add-list-visited').onclick = this.addToList.bind(this, key, 'visited');
-    document.getElementById('add-list-tovisit').onclick = this.addToList.bind(this, key, 'tovisit');
+    var that = this;
+    firebase.database().ref('places/' + key).once('value').then(function(snapshot) {
+      var title = snapshot.val().title;
+      that.infoWindow.setContent("<div id='placeTitle'>"+ title +"</div><input type='button' id='add-list-visited' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add to Visited'>  <input type='button' id='add-list-tovisit' class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Add as Place to Visit'>");
+      that.infoWindow.open(that.map, that.markers[key]);
+      document.getElementById('add-list-visited').onclick = that.addToList.bind(that, key, 'visited');
+      document.getElementById('add-list-tovisit').onclick = that.addToList.bind(that, key, 'tovisit');
+    });
   }).bind(this));
 }
 
