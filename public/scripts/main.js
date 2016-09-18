@@ -358,18 +358,18 @@ Dunia.prototype.loadPlace = function(key, place) {
 	'<input type="button" id="add-list-tovisit" class="mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value="Add as Place to Visit">'
       );
       that.infoWindow.open(that.map, that.markers[key]);
-      document.getElementById('add-list-visited').onclick = that.addToList.bind(that, key, /*snapshot.val(),*/ 'visited');
-      document.getElementById('add-list-tovisit').onclick = that.addToList.bind(that, key, /*snapshot.val(),*/ 'tovisit');
+      document.getElementById('add-list-visited').onclick = that.addToList.bind(that, key, snapshot.val(), 'visited');
+      document.getElementById('add-list-tovisit').onclick = that.addToList.bind(that, key, snapshot.val(), 'tovisit');
     });
   }).bind(this));
 }
 
-Dunia.prototype.addToList = function(key, /*place,*/ list) {
+Dunia.prototype.addToList = function(key, place, list) {
   console.log('Place ' + key + ' added to list ' + list);
   firebase.database().ref(list + '/' + this.userId + '/' + key).set(1);
 
   // Reload place
-  //this.loadPlace(key, place);
+  this.loadPlace(key, place);
 
   // Hide window
   this.infoWindow.setMap(null);
