@@ -1,9 +1,9 @@
 'use strict';
 
 function Dunia() {
-	this.checkSetup();
+  this.checkSetup();
 
-	// Shortcuts to DOM Elements.
+  // Shortcuts to DOM Elements.
   this.visitedList = document.getElementById('visited');
   this.messageForm = document.getElementById('message-form');
   this.messageInput = document.getElementById('message');
@@ -32,6 +32,10 @@ function Dunia() {
   //  this.mediaCapture.click();
   //}.bind(this));
   //this.mediaCapture.addEventListener('change', this.saveImageMessage.bind(this));
+
+  // Properties for map.
+  this.map = null;
+  this.markers = {};
 
   this.initFirebase();
 }
@@ -168,8 +172,8 @@ Dunia.prototype.checkSetup = function() {
   }
 };
 
-function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
+Dunia.prototype.initMap = function() {
+  this.map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 43.47, lng: -80.5},
     zoom: 12,
     styles: [{
@@ -183,26 +187,36 @@ function initMap() {
     scrollwheel: false
   });
 
-  var placesRef = firebase.database().ref('places');
   // Add custom markers
-  map.addListener('click', function(event) {
+  this.map.addListener('click', function(event) {
     console.log("Click event @" + event.latLng);
-    placesRef.push({lat: event.latLng.lat(), lng: event.latLng.lng()});
+    firebase.database().ref('places').push({lat: event.latLng.lat(), lng: event.latLng.lng()});
   });
 
-  // Update markers with database
-  placesRef.on('child_added', function(snapshot) {
-    var place = snapshot.val();
-    if(place == null) return;
-    console.log("Marker added @" + place);
-    new google.maps.Marker({
-      position: {lat: place.lat, lng: place.lng},
-      map: map
+  // Add/Change/Remove markers with database
+  var add_marker_callback = function(snapshot) {
+    console.log("Marker added with id " + snapshot.key);
+    this.markers[snapshot.key] = new google.maps.Marker({
+      position: {lat: snapshot.val().lat, lng: snapshot.val().lng},
+      map: this.map
     });
-  });
+  };
+  var change_marker_callback = function(snapshot) {
+    console.log("Marker changed with id " + snapshot.key);
+    this.markers[snapshot.key].setPosition({lat: snapshot.val().lat, lng: snapshot.val().lng});
+  };
+  var remove_marker_callback = function(snapshot) {
+    console.log("Marker removed with id " + snapshot.key);
+    this.markers[snapshot.key].setMap(null);
+    delete this.markers[snapshot.key];
+  };
+  firebase.database().ref('places').on('child_added', add_marker_callback.bind(this));
+  firebase.database().ref('places').on('child_changed', change_marker_callback.bind(this));
+  firebase.database().ref('places').on('child_removed', remove_marker_callback.bind(this));
 }
 
 window.onload = function() {
   window.dunia = new Dunia();
-  google.load("maps", "3", {other_params: 'key=AIzaSyAHafQFb_sniyg-XC5B_C1oW23sjV1ubIA', callback: initMap})
+  google.load("maps", "3", {other_params: 'key=AIzaSyAHafQFb_sniyg-XC5B_C1oW23sjV1ubIA',
+                            callback: Dunia.prototype.initMap.bind(window.dunia)});
 };
