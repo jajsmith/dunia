@@ -272,8 +272,10 @@ Dunia.prototype.newPlace = function(latLng) {
 Dunia.prototype.submitNewPlace = function() {
   console.log("Submitting new place.");
 
+  // Push new place to database
   firebase.database().ref('places').push({lat: this.newMarker.getPosition().lat(),
                                           lng: this.newMarker.getPosition().lng()});
+  // Remove temporary place
   this.removeNewPlace();
 }
 
@@ -287,10 +289,14 @@ Dunia.prototype.removeNewPlace = function() {
 
 Dunia.prototype.loadPlace = function(key, latLng) {
   console.log("Marker added with id " + key);
+
+  // Create new marker object
   this.markers[key] = new google.maps.Marker({
     position: {lat: latLng.lat, lng: latLng.lng},
     map: this.map
   });
+
+  // Set marker click listener
   this.markers[key].addListener('click', (function() {
     console.log("Marker selected with id " + key);
 
@@ -298,20 +304,20 @@ Dunia.prototype.loadPlace = function(key, latLng) {
     this.removeNewPlace();
 
     // Open "Place" window
-    this.infoWindow.setContent("<input type='button' id='add-list-visited' value='Add to Visited'> <input type='button' id='add-list-to-visit' value='Add to To-Visit'>");
+    this.infoWindow.setContent("<input type='button' id='add-list-visited' value='Add to Visited'> <input type='button' id='add-list-tovisit' value='Add to To-Visit'>");
     this.infoWindow.open(this.map, this.markers[key]);
     document.getElementById('add-list-visited').onclick = this.addToList.bind(this, key, 'visited');
-    document.getElementById('add-list-to-visit').onclick = this.addToList.bind(this, key, 'to-visit');
+    document.getElementById('add-list-tovisit').onclick = this.addToList.bind(this, key, 'tovisit');
   }).bind(this));
 }
 
 Dunia.prototype.addToList = function(key, list) {
   if(list == 'visited') {
     console.log('Place ' + key + ' added to list Visited');
-  } else if(list == 'to-visit') {
+  } else if(list == 'tovisit') {
     console.log('Place ' + key + ' added to list To-Visit');
   }
-  firebase.database().ref(list + '/' + this.userId).push({key: 1});
+  firebase.database().ref(list + '/' + this.userId + '/' + key).set(1);
 }
 
 window.onload = function() {
