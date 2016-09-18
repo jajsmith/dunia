@@ -35,7 +35,7 @@ a {
   height: 100%;
   padding-top: 0;
 }
-#messages {
+#visited {
   overflow-y: auto;
   margin-bottom: 10px;
   height: calc(100% - 90px);
@@ -43,7 +43,7 @@ a {
   flex-direction: column;
   display: flex;
 }
-#message-filler {
+#visited-filler {
   flex-grow: 1;
 }
 .message-container:first-of-type {
@@ -185,9 +185,6 @@ a {
   margin-right: 5px;
 }
 
-
-
-
 #title {
   max-width: 500px;
   margin: 40px auto;
@@ -196,6 +193,7 @@ a {
   background: white;
   padding: 16px 24px;
 }
+
 #title h1 {
   font-size: 42px;
   font-weight: 500;

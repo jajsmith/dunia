@@ -1,126 +1,158 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Dunia</title>
-    
-    <!-- STYLING -->
-    <!-- Material Design Lite -->
+<head>
+  <meta charset="utf-8">
+  <title>Dunia</title>
+  <!-- STYLING -->
+  <!-- Material Design Lite -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
   <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
-
   <!-- App Styling -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
   <link rel="stylesheet" href="styles/main.css">
-  </head>
-  <body>
-    <!-- Header section containing logo -->
-    <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
-      <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
-        <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-          <h3><i class="material-icons">explore</i> Dunia</h3>
-        </div>
-        <div id="user-container">
-          <div hidden id="user-pic"></div>
-          <div hidden id="user-name"></div>
-          <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-            Sign-out
-          </button>
-          <button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-            <i class="material-icons">account_circle</i>Sign-in with Google
-          </button>
-        </div>
+</head>
+
+<body>
+  <!-- Header section containing logo and user/login -->
+  <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
+      <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
+        <h3><i class="material-icons">explore</i> Dunia</h3>
       </div>
-    </header>
-
-    <div id="title">
-      <h1 >Want to Explore Waterloo?</h1>
-      <h2>Check out these cool places</h2>
+      <div id="user-container">
+        <div hidden id="user-pic"></div>
+        <div hidden id="user-name"></div>
+        <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+          Sign-out
+        </button>
+        <button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+          <i class="material-icons">account_circle</i>Sign-in with Google
+        </button>
+      </div>
     </div>
-    <div id="map"></div>
-    <div id="content-window">
-      <h1>Click on Interest Points for Info</h1>
-      <div id="map-content"></div>
+  </header>
+
+  <div id="title" class="">
+    <h1 >Want to Explore Waterloo?</h1>
+    <h6>Check out these cool places</h6>
+  </div>
+
+  <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
+    
+    <!-- Locations container -->
+    <div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+      <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+        <h3>Places You've Visited</h3>
+        <div id="visited">
+          <span id="visited-filler"></span>
+        </div>
+        <form id="message-form" action="#">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="message">
+            <label class="mdl-textfield__label" for="message">Location...</label>
+          </div>
+          <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            Add
+          </button>
+        </form>
+        <!--<form id="image-form" action="#">
+          <input id="mediaCapture" type="file" accept="image/*,capture=camera">
+          <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
+            <i class="material-icons">image</i>
+          </button>
+        </form>-->
+      </div>
     </div>
+    <!--<div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
+      <div class="mdl-snackbar__text"></div>
+      <button class="mdl-snackbar__action" type="button"></button>
+    </div>-->
+  </div>
 
-    <!-- Firebase -->    
-    <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
-    <script>
-      /* *************************************
-       * This connects us to FIREBASE
-       * *************************************
-       */
-      var config = {
-        apiKey: "AIzaSyCLG6CjQSZcw8KI8QgBBOzRwMfJtkIwkj0",
-        authDomain: "hackthenorth-b683f.firebaseapp.com",
-        databaseURL: "https://hackthenorth-b683f.firebaseio.com",
-        storageBucket: "hackthenorth-b683f.appspot.com",
-        messagingSenderId: "453572199626"
-      };
-      firebase.initializeApp(config);
+  <div id="map"></div>
+  <div id="content-window">
+    <h1>Click on Interest Points for Info</h1>
+    <div id="map-content"></div>
+  </div>
 
-      /**
-       * *************************************
-       * This runs GOOGLE MAPS API connections
-       * *************************************
-       */
-      var map;
-      
-      /*var publicArtSrc = '../data/waterloo_public_art.kml'*/
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 43.47, lng: -80.5},
-          zoom: 12,
-          styles: [{
-            featureType: 'poi',
-            stylers: [{ visibility: 'off' }]  // Turn off points of interest.
-          }, {
-            featureType: 'transit.station',
-            stylers: [{ visibility: 'off' }]  // Turn off bus stations, train stations, etc.
-          }],
-          disableDoubleClickZoom: true,
-          scrollwheel: false
-        });
+  <!-- Firebase -->    
+  <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
+  <script>
+    /* *************************************
+     * This connects us to FIREBASE
+     * *************************************
+     */
+    var config = {
+      apiKey: "AIzaSyCLG6CjQSZcw8KI8QgBBOzRwMfJtkIwkj0",
+      authDomain: "hackthenorth-b683f.firebaseapp.com",
+      databaseURL: "https://hackthenorth-b683f.firebaseio.com",
+      storageBucket: "hackthenorth-b683f.appspot.com",
+      messagingSenderId: "453572199626"
+    };
+    firebase.initializeApp(config);
 
-        // Add custom markers?
-        map.addListener('click', function(e) {
-          var marker = new google.maps.Marker({
-            position: {lat: e.latLng.lat(), lng: e.latLng.lng()},
-            map: map
-          });
-        });
-      }
-      //var storage = firebase.storage();
-      var storage = firebase.storage();
-      var publicArtRef = storage.ref("opendata/waterloo_public_art_2.kml");
-      var publicArtSrc = publicArtRef.getDownloadURL().then(function(url) {
-        loadKmlLayer(url, map);
-      }).catch(function(error) {
-        // TODO
+    /**
+     * *************************************
+     * This runs GOOGLE MAPS API connections
+     * *************************************
+     */
+    var map;
+    
+    /*var publicArtSrc = '../data/waterloo_public_art.kml'*/
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 43.47, lng: -80.5},
+        zoom: 12,
+        styles: [{
+          featureType: 'poi',
+          stylers: [{ visibility: 'off' }]  // Turn off points of interest.
+        }, {
+          featureType: 'transit.station',
+          stylers: [{ visibility: 'off' }]  // Turn off bus stations, train stations, etc.
+        }],
+        disableDoubleClickZoom: true,
+        scrollwheel: false
       });
 
-      /**
-       * Adds a KMLLayer based on the URL passed. Clicking on a marker
-       * results in the balloon content being loaded into the right-hand div.
-       * @param {string} src A URL for a KML file.
-       */
-      function loadKmlLayer(src, map) {
-        console.log("Loading KML Layer: " + src);
-        var kmlLayer = new google.maps.KmlLayer(src, {
-          suppressInfoWindows: true,
-          preserveViewport: false,
+      // Add custom markers?
+      map.addListener('click', function(e) {
+        var marker = new google.maps.Marker({
+          position: {lat: e.latLng.lat(), lng: e.latLng.lng()},
           map: map
         });
-        google.maps.event.addListener(kmlLayer, 'click', function(event) {
-          var content = event.featureData.infoWindowHtml;
-          var testimonial = document.getElementById('map-content');
-          testimonial.innerHTML = content;
-        });
-       }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHafQFb_sniyg-XC5B_C1oW23sjV1ubIA&callback=initMap"
-    async defer></script>
-    <script src="scripts/main.js"></script>
-  </body>
+      });
+    }
+    //var storage = firebase.storage();
+    var storage = firebase.storage();
+    var publicArtRef = storage.ref("opendata/waterloo_public_art_2.kml");
+    var publicArtSrc = publicArtRef.getDownloadURL().then(function(url) {
+      loadKmlLayer(url, map);
+    }).catch(function(error) {
+      // TODO
+    });
+
+    /**
+     * Adds a KMLLayer based on the URL passed. Clicking on a marker
+     * results in the balloon content being loaded into the right-hand div.
+     * @param {string} src A URL for a KML file.
+     */
+    function loadKmlLayer(src, map) {
+      console.log("Loading KML Layer: " + src);
+      var kmlLayer = new google.maps.KmlLayer(src, {
+        suppressInfoWindows: true,
+        preserveViewport: false,
+        map: map
+      });
+      google.maps.event.addListener(kmlLayer, 'click', function(event) {
+        var content = event.featureData.infoWindowHtml;
+        var testimonial = document.getElementById('map-content');
+        testimonial.innerHTML = content;
+      });
+     }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHafQFb_sniyg-XC5B_C1oW23sjV1ubIA&callback=initMap"
+  async defer></script>
+  <script src="scripts/main.js"></script>
+</body>
 </html>

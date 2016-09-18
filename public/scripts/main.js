@@ -4,7 +4,7 @@ function Dunia() {
 	this.checkSetup();
 
 	// Shortcuts to DOM Elements.
-  //this.messageList = document.getElementById('messages');
+  this.visitedList = document.getElementById('visited');
   //this.messageForm = document.getElementById('message-form');
   //this.messageInput = document.getElementById('message');
   //this.submitButton = document.getElementById('submit');
@@ -42,6 +42,13 @@ function Dunia() {
 
 Dunia.LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
 
+// Template for messages.
+Dunia.VISITED_TEMPLATE =
+    '<div class="message-container">' +
+      '<div class="spacing"><div class="pic"></div></div>' +
+      '<div class="message"><div class="lat"></div><div class="lng"></div></div>' +
+      '<div class="name"></div>' +
+    '</div>';
 
 //
 // PROTOTYPE FUNCTIONS
@@ -54,6 +61,59 @@ Dunia.prototype.initFirebase = function() {
   this.storage = firebase.storage();
   // Initiates Firebase auth and listen to auth state changes.
   this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));
+};
+
+// Loads visted places and listen for new ones.
+Dunia.prototype.loadVisited = function() {
+  // Ref to the /visited/ database path
+  this.visitedRef = this.database.ref('places');
+  // remove all previous listeners
+  this.visitedRef.off();
+
+  // Load last 12 messages and listen for new ones
+  var setVisited = function(data) {
+    var val = data.val();
+    this.displayVisited(data.key, val.lat, val.lng);
+  }.bind(this);
+  this.visitedRef.limitToLast(12).on('child_added', setVisited);
+  this.visitedRef.limitToLast(12).on('child_changed', setVisited);
+};
+
+// Displays a Visited Place in the List.
+Dunia.prototype.displayVisited = function(key, lat, lng) {
+  console.log("Displaying key: " + key);
+  var div = document.getElementById(key);
+  // If an element for that place does not exist yet we create it.
+  if (!div) {
+    var container = document.createElement('div');
+    container.innerHTML = Dunia.VISITED_TEMPLATE;
+    div = container.firstChild;
+    div.setAttribute('id', key);
+    this.visitedList.appendChild(div);
+  }
+  /*if (picUrl) {
+    div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
+  }*/
+  div.querySelector('.lat').textContent = lat;
+  div.querySelector('.lng').textContent = lng;
+  /*var messageElement = div.querySelector('.message');
+  if (lat) { // If the message is text.
+    messageElement.textContent = text;
+    // Replace all line breaks by <br>.
+    messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
+  } else if (imageUri) { // If the message is an image.
+    var image = document.createElement('img');
+    image.addEventListener('load', function() {
+      this.messageList.scrollTop = this.messageList.scrollHeight;
+    }.bind(this));
+    this.setImageUrl(imageUri, image);
+    messageElement.innerHTML = '';
+    messageElement.appendChild(image);
+  }*/
+  // Show the card fading-in.
+  setTimeout(function() {div.classList.add('visible')}, 1);
+  this.visitedList.scrollTop = this.visitedList.scrollHeight;
+  this.messageInput.focus();
 };
 
 // Signs-in Dunia
@@ -87,8 +147,8 @@ Dunia.prototype.onAuthStateChanged = function(user) {
     // Hide sign-in button.
     this.signInButton.setAttribute('hidden', 'true');
 
-    // We load currently existing chant messages.
-    // this.loadMessages();
+    // We load visited places for user
+    this.loadVisited();
   } else { // User is signed out!
     // Hide user's profile and sign-out button.
     this.userName.setAttribute('hidden', 'true');
