@@ -93,19 +93,14 @@ Dunia.prototype.loadList = function(user, list) {
   // remove all previous listeners
   this.listRef.off();
 
-  // Load last 12 messages and listen for new ones
+  // Load last 12 items in list and listen for new ones
   var that = this;
   var setPlace = function(data) {
     var placeId = data.key;
     console.log('Retrieving places/' + placeId);
     var placeRef = that.database.ref('places/' + placeId).once('value').then(function(snapshot) {
       var place = snapshot.val();
-      if (place.hasOwnProperty('submitterPicUrl')) {
-        that.displayList(list, placeId, place.lat, place.lng, place.submitterPicUrl, place.title);
-      } else {
-        that.displayList(list, placeId, place.lat, place.lng, '', '');
-      }
-      
+      that.displayList(list, placeId, place);
     });
   };
   var removePlace = function(data) {
@@ -116,8 +111,8 @@ Dunia.prototype.loadList = function(user, list) {
   this.listRef.limitToLast(12).on('child_removed', removePlace);
 };
 
-// Displays a Visited Place in the List.
-Dunia.prototype.displayList = function(list, key, lat, lng, submitterPicUrl, title) {
+// Displays a List.
+Dunia.prototype.displayList = function(list, key, place) {
   console.log("Displaying key: " + key);
   var div = document.getElementById(key);
   var listContainer = this.visitedList;
@@ -134,15 +129,15 @@ Dunia.prototype.displayList = function(list, key, lat, lng, submitterPicUrl, tit
     }
     div = container.firstChild;
     div.setAttribute('id', key);
-    div.setAttribute('onclick', 'window.dunia.map.panTo({lat:' + lat + ', lng:' + lng + '})'); // Yes, this fully qualifies the map; it is hacky by necessity.
+    div.setAttribute('onclick', 'window.dunia.map.panTo({lat:' + place.lat + ', lng:' + place.lng + '})'); // Yes, this fully qualifies the map; it is hacky by necessity.
 
     listContainer.appendChild(div);
   }
   
-  div.querySelector('.lat').textContent = lat;
-  div.querySelector('.lng').textContent = lng;
+  div.querySelector('.lat').textContent = place.lat;
+  div.querySelector('.lng').textContent = place.lng;
   if (title) {
-    div.querySelector('.place').textContent = title;
+    div.querySelector('.place').textContent = place.title;
   }
   
   if (list == 'tovisit') {
@@ -153,9 +148,8 @@ Dunia.prototype.displayList = function(list, key, lat, lng, submitterPicUrl, tit
         console.log('Writing to visited list');
         // Add a new place in visited list
         that.database.ref('tovisit/' + that.userId + '/' + key).remove().then(function() {
-          //remove container
-          //document.getElementById(key).remove();
-          that.database.ref('visited/' + that.userId + '/' + key).set(1);
+          that.addToList(key, place, 'visited')
+          //that.database.ref('visited/' + that.userId + '/' + key).set(1);
         }).catch(function(error) {
           console.error('Error removing "to visit" place' + error);
         });
@@ -164,8 +158,8 @@ Dunia.prototype.displayList = function(list, key, lat, lng, submitterPicUrl, tit
       }
     });
   } else {
-    if (submitterPicUrl) {
-      div.querySelector('.pic').style.backgroundImage = 'url(' + submitterPicUrl + ')';
+    if (place.submitterPicUrl) {
+      div.querySelector('.pic').style.backgroundImage = 'url(' + place.submitterPicUrl + ')';
     }
   }
 
@@ -211,6 +205,8 @@ Dunia.prototype.onAuthStateChanged = function(user) {
     this.loadList(user, 'visited');
     // We load places to visit for user
     this.loadList(user, 'tovisit');
+    // TODO: Reload map and icons
+
   } else { // User is signed out!
     // Hide user's profile and sign-out button.
     this.userId = "anonymous";
@@ -220,6 +216,8 @@ Dunia.prototype.onAuthStateChanged = function(user) {
 
     // Show sign-in button.
     this.signInButton.removeAttribute('hidden');
+
+    // TODO: Remove private markers from Map 
   }
 };
 
@@ -288,7 +286,6 @@ Dunia.prototype.newPlace = function(latLng) {
   this.infoWindow.setContent(
     '<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">' +
       '<input class="mdl-textfield__input" type="text" id="new-place-title" placeholder="Title...">' +
-      //'<label class="mdl-textfield__label" for="message">Message...</label>' +
     '</div>'+
     "<button class='mdl-button mdl-color--light-blue-500 mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' id='new-place-submit' >Submit</button>"
   );
